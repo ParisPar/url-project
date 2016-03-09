@@ -1,2 +1,150 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+$background-image: url('/images/sky-383823_1920.jpg');
+$navbar-links-color: #286090;
+$signup-button-color: #ff7a49;
+$signup-button-color-hover: #DF6632;
+$features-color: #009cfc;
+
+body {
+  // background-image: $background-image;
+  // background-size: cover;
+
+  font-family: Lato;
+
+  header {
+    background: linear-gradient(to bottom,#89c3eb 0%,#fff 100%);
+    background-repeat: no-repeat;
+  }
+}
+
+
+
+.navbar-default {
+  background-color: transparent;
+  border: none;
+  padding-top: 20px;
+  .navbar-brand {
+    color: $navbar-links-color;
+    font-size: 2em;
+    font-weight: 300;
+  }
+  .navbar-nav {
+    > li > a {
+      color: $navbar-links-color;
+      font-size: 16px;
+      font-weight: 300;
+    }
+  }
+}
+
+.jumbotron {
+  background: transparent;
+  h1 {
+    font-size: 54px;
+    font-weight: 300;
+    color: $navbar-links-color;
+  }
+  p {
+    font-weight: 300;
+  }
+  .btn.btn-primary{
+    background: $signup-button-color;
+    border: none;
+    border-radius: 3px;
+    padding: 15px;
+    &:hover {
+      background: $signup-button-color-hover;
+    }
+  }
+}
+
+.browser-mockup {
+  border-top: 2em solid rgba(230, 230, 230, 0.7);
+  box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-radius: 3px 3px 0 0;
+  width: 100%;
+  &:before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.25em;
+    left: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background-color: #f44;
+    box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+  }
+  > * {
+    display: block;
+  }
+  img {
+    width: inherit;
+  }
+}
+
+main {
+  hr {
+    border-color: #333;
+  }
+}
+
+.features {
+  min-height: 700px;
+  > h1 {
+    color: #444;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+  .nav.nav-tabs {
+    text-align:center;
+    border: none;
+    margin-bottom: 50px;
+    > li {
+      float: none;
+      display:inline-block;
+      a {
+        border: none;
+        color: #444;
+        font-size: 20px;
+        margin: 20px;
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+    > li.active {
+      a {
+        color: $features-color;
+        border-bottom: 3px solid $features-color;
+      }
+    }
+  }
+  .tab-pane {
+    h1 {
+      color: #444;
+      font-size: 50px;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+    p {
+      font-size: 20px;
+      font-weight: 300;
+    }
+  }
+}
+
+footer {
+  background-color: #0b1e35;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 50px;
+  p {
+    font-weight: 300;
+    color: white;
+  }
+}

@@ -1,0 +1,91 @@
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$navbar-links-color: #286090;
+$signup-button-color: #ff7a49;
+$signup-button-color-hover: #DF6632;
+$features-color: #009cfc;
+
+body {
+  background: linear-gradient(to bottom,#89c3eb 0%,#fff 100%);
+  background-repeat: no-repeat;
+  min-height: 535px;
+}
+
+.navbar-default {
+  background-color: transparent;
+  border: none;
+  padding-top: 20px;
+  .navbar-brand {
+    color: $navbar-links-color;
+    font-size: 2em;
+    font-weight: 300;
+  }
+  .navbar-nav {
+    > li > a {
+      color: $navbar-links-color;
+      font-size: 16px;
+      font-weight: 300;
+    }
+  }
+}
+
+.panel {
+  // max-width: 400px;
+  border: none;
+  max-width: 400px;
+  margin: 0 auto;
+  .panel-body {
+
+    h1 {
+      font-size: 40px;
+      font-weight: 300;
+      color: $navbar-links-color;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .btn.btn-primary {
+      border: none;
+      border-radius: 0;
+    }
+  }
+  .form-group {
+    margin: 15px 20px;
+    font-size: 18px;
+    input.form-control {
+      padding: 15px;
+      font-size: 18px;
+      height: auto;
+    }
+    input[type="checkbox"] {
+      margin-top: 6px;
+      margin-left: -19px;
+      -ms-transform: scale(1.4); /* IE */
+      -moz-transform: scale(1.4); /* FF */
+      -webkit-transform: scale(1.4); /* Safari and Chrome */
+      -o-transform: scale(1.4); /* Opera */
+    }
+    button {
+      font-size: 24px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: 100%;
+    }
+    p {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .checkbox {
+      padding-top: 0;
+    }
+    &.has-error {
+      margin-bottom: 0;
+      margin-top: 0;
+      .help-block {
+        font-size: 14px;
+        // margin-bottom:
+      }
+    }
+  }
+
+}
+
