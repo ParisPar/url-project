@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
   <!-- Styles -->
-  <link href="{{ elixir('css/dashboard.css') }}" rel="stylesheet">
+  <link href="{{ elixir('css/auth.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="/css/libs.css">
 
   <style>
@@ -59,7 +59,6 @@
             </a>
 
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#"><i class="fa fa-btn fa-cog"></i>Settings</a></li>
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>

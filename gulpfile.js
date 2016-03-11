@@ -15,7 +15,8 @@ elixir(function(mix) {
 
     mix.sass('app.scss')
       .sass('auth.scss', './public/css/auth.css')
-      .version(['css/app.css', 'css/auth.css'])
+      .sass('dashboard.scss', './public/css/dashboard.css')
+      .version(['css/app.css', 'css/auth.css', 'css/dashboard.css'])
 
       .scripts([
         'libs/remodal.js'
