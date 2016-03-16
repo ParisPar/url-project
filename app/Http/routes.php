@@ -31,7 +31,7 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+    Route::auth();//Sets up the routes for authenticating a user
 
     Route::get('/home', 'HomeController@index');
 });
