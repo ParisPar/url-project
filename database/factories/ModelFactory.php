@@ -15,7 +15,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
-        'password' => bcrypt(str_random(10)),
+        'password' => bcrypt('password'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Link::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->sentence,
+        'url' => $faker->url,
+        'description' => $faker->paragraph,
+        'user_id' => rand(1, 5)
+    ];
+});
+
+$factory->define(App\Tag::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'user_id' => rand(1, 5)
     ];
 });
