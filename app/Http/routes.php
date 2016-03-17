@@ -34,4 +34,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();//Sets up the routes for authenticating a user
 
     Route::get('/home', 'HomeController@index');
+
+    Route::resource('links', 'LinksController');
+    Route::resource('tags', 'TagsController');
 });
