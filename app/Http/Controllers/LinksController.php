@@ -16,7 +16,7 @@ class LinksController extends Controller
      */
     public function index()
     {
-        return $this->user->links()->get();
+        return $this->user->links()->with('tags')->get();
     }
 
     /**

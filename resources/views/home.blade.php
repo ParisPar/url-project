@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- 
 <div class="container">
-
   <div class="row">
     <div class="col-md-3">
       <button id="new-button" class="btn btn-primary"><i class="fa fa-plus"></i>New Link</button>
@@ -79,13 +79,10 @@
           <li><a href="#">1</a></li>
           <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
         </ul>
-
-
-
       </div>
-
     </div>
   </div>
-
 </div>
+ -->
+<div id="root" class="container"></div>
 @endsection
