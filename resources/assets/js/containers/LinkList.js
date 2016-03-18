@@ -1,9 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { fetchLinks } from '../actions/actions';
+import { fetchLinks, setSearchFilter } from '../actions/actions';
 import LinkItem from '../components/LinkItem';
+
+function getFilteredLinks(links, searchFilter, tagFilters) {
+  // console.log('getFilteredLinks',...arguments);
+  if(searchFilter == null) {
+    searchFilter = '';
+  }
+
+  // Filter links by the search term
+  const lcSearchFilter = searchFilter.toLowerCase();
+  const searchFilteredLinks = links.filter((link) => {
+    return link.title.toLowerCase().includes(lcSearchFilter);
+  });
+
+  if(tagFilters.length == 0)
+    return searchFilteredLinks;
+
+  // Take the link already filtered by the search term
+  // and filter them by the selected tags
+  
+  return searchFilteredLinks.filter((link) => {
+    let matchesSelectedTags = false;
+    link.tags.forEach((tag) => {
+      if(tagFilters.includes(tag.id)) {
+        matchesSelectedTags = true;
+      }
+    })
+    if(matchesSelectedTags) {
+      return true;
+    }
+  })
+}
 
 class LinkList extends Component {
   componentWillMount() {
@@ -48,14 +78,18 @@ class LinkList extends Component {
   }
 }
 
-function mapStateToProps({links}) {
+function mapStateToProps({links, searchFilter, tagFilters}) {
   return {
-    links
+    links: getFilteredLinks(links, searchFilter, tagFilters)
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchLinks}, dispatch);
+  return {
+    fetchLinks: () => {
+      dispatch(fetchLinks());
+    }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LinkList);

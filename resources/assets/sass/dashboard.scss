@@ -104,7 +104,7 @@ body {
     padding: 0;
     li {
       list-style-type: none;
-
+      border-bottom: 1px solid #222;
       i {
         margin: 5px;
       }
@@ -114,7 +114,17 @@ body {
         color: #fff;
         padding: 10px;
         &:hover {
+          background: #666;
+        }
+      }
+      &.active {
+        background: #444;
+        a:hover {
           background: #444;
+        }
+        .fa-check {
+          color: green;
+          float: right;
         }
       }
     }

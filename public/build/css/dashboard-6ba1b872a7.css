@@ -5824,7 +5824,8 @@ body {
   .tag-list ul {
     padding: 0; }
     .tag-list ul li {
-      list-style-type: none; }
+      list-style-type: none;
+      border-bottom: 1px solid #222; }
       .tag-list ul li i {
         margin: 5px; }
       .tag-list ul li a {
@@ -5833,7 +5834,14 @@ body {
         color: #fff;
         padding: 10px; }
         .tag-list ul li a:hover {
+          background: #666; }
+      .tag-list ul li.active {
+        background: #444; }
+        .tag-list ul li.active a:hover {
           background: #444; }
+        .tag-list ul li.active .fa-check {
+          color: green;
+          float: right; }
 
 .app-main {
   margin-top: 20px; }

@@ -22098,6 +22098,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchLinks = fetchLinks;
 exports.fetchTags = fetchTags;
+exports.setSearchFilter = setSearchFilter;
+exports.addTagFilter = addTagFilter;
+exports.removeTagFilter = removeTagFilter;
+exports.clearTagFilters = clearTagFilters;
 
 var _axios = require('axios');
 
@@ -22120,6 +22124,33 @@ function fetchTags() {
   return {
     type: 'FETCH_TAGS',
     payload: request
+  };
+}
+
+function setSearchFilter(searchTerm) {
+  return {
+    type: 'SET_SEARCH_FILTER',
+    searchTerm: searchTerm
+  };
+}
+
+function addTagFilter(tagFilterId) {
+  return {
+    type: 'ADD_TAG_FILTER',
+    tagFilterId: tagFilterId
+  };
+}
+
+function removeTagFilter(tagFilterId) {
+  return {
+    type: 'REMOVE_TAG_FILTER',
+    tagFilterId: tagFilterId
+  };
+}
+
+function clearTagFilters() {
+  return {
+    type: 'CLEAR_TAG_FILTERS'
   };
 }
 
@@ -22176,32 +22207,85 @@ exports.default = function (props) {
 };
 
 },{"react":192}],206:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
+var _actions = require('../actions/actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (props) {
+// The only use case for bindActionCreators is when you
+// want to pass some action creators down to a component
+// that isn’t aware of Redux, and you don’t want to pass
+// dispatch or the Redux store to it.
+
+
+function TagItem(props) {
+
+  // If the array of active tag filter contains the
+  // id of the tag received set the li as active
+  var isActive = false;
+  if (props.tagFilters) {
+    isActive = props.tagFilters.includes(props.id) ? true : false;
+  }
+
   return _react2.default.createElement(
-    "li",
-    null,
+    'li',
+    { className: isActive ? "active" : "",
+      onClick: function onClick(e) {
+        if (!isActive) {
+          e.preventDefault();
+          props.addTagFilter(props.id);
+        } else {
+          e.preventDefault();
+          props.removeTagFilter(props.id);
+        }
+      } },
     _react2.default.createElement(
-      "a",
-      { href: "#" },
-      _react2.default.createElement("i", { className: "fa fa-tag" }),
-      props.name
+      'a',
+      { href: '#' },
+      _react2.default.createElement('i', { className: 'fa fa-tag' }),
+      props.name,
+      function () {
+        if (isActive) {
+          return _react2.default.createElement('i', { className: 'fa fa-check' });
+        }
+      }()
     )
   );
-};
+}
 
-},{"react":192}],207:[function(require,module,exports){
+function mapStateToProps(_ref) {
+  var tagFilters = _ref.tagFilters;
+
+  return {
+    tagFilters: tagFilters
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addTagFilter: function addTagFilter(tagId) {
+      dispatch((0, _actions.addTagFilter)(tagId));
+    },
+    removeTagFilter: function removeTagFilter(tagId) {
+      dispatch((0, _actions.removeTagFilter)(tagId));
+    }
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TagItem);
+
+},{"../actions/actions":204,"react":192,"react-redux":57}],207:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22269,8 +22353,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _redux = require('redux');
-
 var _actions = require('../actions/actions');
 
 var _LinkItem = require('../components/LinkItem');
@@ -22284,6 +22366,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function getFilteredLinks(links, searchFilter, tagFilters) {
+  // console.log('getFilteredLinks',...arguments);
+  if (searchFilter == null) {
+    searchFilter = '';
+  }
+
+  // Filter links by the search term
+  var lcSearchFilter = searchFilter.toLowerCase();
+  var searchFilteredLinks = links.filter(function (link) {
+    return link.title.toLowerCase().includes(lcSearchFilter);
+  });
+
+  if (tagFilters.length == 0) return searchFilteredLinks;
+
+  // Take the link already filtered by the search term
+  // and filter them by the selected tags
+
+  return searchFilteredLinks.filter(function (link) {
+    var matchesSelectedTags = false;
+    link.tags.forEach(function (tag) {
+      if (tagFilters.includes(tag.id)) {
+        matchesSelectedTags = true;
+      }
+    });
+    if (matchesSelectedTags) {
+      return true;
+    }
+  });
+}
 
 var LinkList = function (_Component) {
   _inherits(LinkList, _Component);
@@ -22370,19 +22482,25 @@ var LinkList = function (_Component) {
 
 function mapStateToProps(_ref) {
   var links = _ref.links;
+  var searchFilter = _ref.searchFilter;
+  var tagFilters = _ref.tagFilters;
 
   return {
-    links: links
+    links: getFilteredLinks(links, searchFilter, tagFilters)
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ fetchLinks: _actions.fetchLinks }, dispatch);
+  return {
+    fetchLinks: function fetchLinks() {
+      dispatch((0, _actions.fetchLinks)());
+    }
+  };
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LinkList);
 
-},{"../actions/actions":204,"../components/LinkItem":205,"react":192,"react-redux":57,"redux":199}],209:[function(require,module,exports){
+},{"../actions/actions":204,"../components/LinkItem":205,"react":192,"react-redux":57}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22396,6 +22514,8 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
+
+var _actions = require('../actions/actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22415,6 +22535,12 @@ var SearchBar = function (_Component) {
   }
 
   _createClass(SearchBar, [{
+    key: 'dispatchSearchFilterAction',
+    value: function dispatchSearchFilterAction(event) {
+      console.log('Entered dispatchSearchFilterAction', event.target.value, this.props);
+      this.props.setSearchFilter(event.target.value);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -22428,7 +22554,10 @@ var SearchBar = function (_Component) {
             { className: 'icon' },
             _react2.default.createElement('i', { className: 'fa fa-search' })
           ),
-          _react2.default.createElement('input', { type: 'search', placeholder: 'Search Links...' })
+          _react2.default.createElement('input', { type: 'search',
+            placeholder: 'Search Links...',
+            onChange: this.dispatchSearchFilterAction.bind(this)
+          })
         )
       );
     }
@@ -22437,9 +22566,17 @@ var SearchBar = function (_Component) {
   return SearchBar;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)()(SearchBar);
+function mapDispatchToProps(dispatch) {
+  return {
+    setSearchFilter: function setSearchFilter(searchTerm) {
+      dispatch((0, _actions.setSearchFilter)(searchTerm));
+    }
+  };
+}
 
-},{"react":192,"react-redux":57}],210:[function(require,module,exports){
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchBar);
+
+},{"../actions/actions":204,"react":192,"react-redux":57}],210:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22489,6 +22626,8 @@ var TagList = function (_Component) {
     value: function renderTags() {
       return this.props.tags.map(function (tag) {
         return _react2.default.createElement(_TagItem2.default, { key: tag.id,
+          id: tag.id,
+          active: tag.active,
           name: tag.name
         });
       });
@@ -22496,6 +22635,8 @@ var TagList = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'col-md-3' },
@@ -22518,7 +22659,10 @@ var TagList = function (_Component) {
             null,
             _react2.default.createElement(
               'li',
-              null,
+              { onClick: function onClick(e) {
+                  e.preventDefault();
+                  _this2.props.clearTagFilters();
+                } },
               _react2.default.createElement(
                 'a',
                 { href: '#' },
@@ -22545,7 +22689,14 @@ function mapStateToProps(_ref) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ fetchTags: _actions.fetchTags }, dispatch);
+  return {
+    fetchTags: function fetchTags() {
+      dispatch((0, _actions.fetchTags)());
+    },
+    clearTagFilters: function clearTagFilters() {
+      dispatch((0, _actions.clearTagFilters)());
+    }
+  };
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TagList);
@@ -22604,16 +22755,26 @@ var _tags = require('./tags');
 
 var _tags2 = _interopRequireDefault(_tags);
 
+var _searchFilter = require('./searchFilter');
+
+var _searchFilter2 = _interopRequireDefault(_searchFilter);
+
+var _tagFilters = require('./tagFilters');
+
+var _tagFilters2 = _interopRequireDefault(_tagFilters);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
   links: _links2.default,
-  tags: _tags2.default
+  tags: _tags2.default,
+  searchFilter: _searchFilter2.default,
+  tagFilters: _tagFilters2.default
 });
 
 exports.default = rootReducer;
 
-},{"./links":213,"./tags":214,"redux":199}],213:[function(require,module,exports){
+},{"./links":213,"./searchFilter":214,"./tagFilters":215,"./tags":216,"redux":199}],213:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22624,7 +22785,7 @@ exports.default = function () {
   var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
   var action = arguments[1];
 
-  console.log('Entered links reducer', action);
+  // console.log('Entered links reducer', action);
   switch (action.type) {
     case 'FETCH_LINKS':
       return action.payload.data;
@@ -22640,12 +22801,72 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+  var action = arguments[1];
+
+  // console.log('Entered searchFilter reducer', action);
+  switch (action.type) {
+    case 'SET_SEARCH_FILTER':
+      return action.searchTerm;
+  }
+  return state;
+};
+
+},{}],215:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+exports.default = function () {
   var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
   var action = arguments[1];
 
-  console.log('Entered tags reducer', action);
+  // console.log('Entered tagFilters reducer', state, action);
+  switch (action.type) {
+    case 'ADD_TAG_FILTER':
+      if (state == null) {
+        // console.log('1. Returning', [action.tagFilterId]);
+        return [action.tagFilterId];
+      } else {
+        // console.log('2. Returning', [...state, action.tagFilterId]);
+        return [].concat(_toConsumableArray(state), [action.tagFilterId]);
+      }
+
+    case 'REMOVE_TAG_FILTER':
+      if (state) {
+        return state.filter(function (tagFilterId) {
+          return tagFilterId != action.tagFilterId;
+        });
+      } else {}
+
+    case 'CLEAR_TAG_FILTERS':
+      return [];
+  }
+  return state;
+};
+
+},{}],216:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+  var action = arguments[1];
+
+  // console.log('Entered tags reducer', action);
   switch (action.type) {
     case 'FETCH_TAGS':
+      // Add active property to keep track of active tag filters
+      action.payload.data.map(function (tag) {
+        return tag.active = false;
+      });
       return action.payload.data;
   }
   return state;
