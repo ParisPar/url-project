@@ -5749,6 +5749,9 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+html {
+  overflow-y: scroll; }
+
 body {
   background: rgba(137, 195, 235, 0.3);
   background-repeat: no-repeat;
@@ -5840,7 +5843,7 @@ body {
         .tag-list ul li.active a:hover {
           background: #444; }
         .tag-list ul li.active .fa-check {
-          color: green;
+          color: lightgreen;
           float: right; }
 
 .app-main {

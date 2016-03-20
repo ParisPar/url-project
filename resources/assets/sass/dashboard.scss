@@ -8,6 +8,10 @@ $signup-button-color-hover: #DF6632;
 $features-color: #009cfc;
 $tags-background: #fff;
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   // background: linear-gradient(to bottom,#89c3eb 0%,#fff 100%);
   background: $background-color;
@@ -123,7 +127,7 @@ body {
           background: #444;
         }
         .fa-check {
-          color: green;
+          color: lightgreen;
           float: right;
         }
       }

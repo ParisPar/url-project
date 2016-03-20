@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Tag;
 
 class TagsController extends Controller
 {
@@ -25,7 +26,7 @@ class TagsController extends Controller
      */
     public function create()
     {
-        //
+        return redirect('/home');
     }
 
     /**
@@ -36,7 +37,14 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = new Tag($request->all());
+
+        $this->user->tags()->save($tag);
+
+        return response()->json([
+            'data' => $tag,
+            'message' => 'Tag Created'
+        ], 200);
     }
 
     /**
@@ -47,7 +55,7 @@ class TagsController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->user->tags()->findOrFail($id);
     }
 
     /**
@@ -58,7 +66,7 @@ class TagsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect('/home');
     }
 
     /**
@@ -70,7 +78,14 @@ class TagsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tag = $this->user->tags()->findOrFail($id);
+
+        $tag->update($request->all());
+
+        return response()->json([
+            'data' => $tag,
+            'message' => 'Tag Edited'
+        ], 200);
     }
 
     /**
@@ -81,6 +96,12 @@ class TagsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tag = $this->user->tags()->findOrFail($id);
+
+        $tag->delete();
+
+        return response()->json([
+            'message' => 'Tag Deleted'
+        ], 200);
     }
 }

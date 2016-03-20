@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 
 use App\Http\Requests;
+use App\Link;
 
 class LinksController extends Controller
 {
@@ -37,7 +38,14 @@ class LinksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $link = new Link($request->all());
+
+        $this->user->links()->save($link);
+
+        return response()->json([
+            'data' => $link,
+            'message' => 'Link Created'
+        ], 200);
     }
 
     /**
@@ -48,7 +56,7 @@ class LinksController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->user->links()->findOrFail($id);
     }
 
     /**
@@ -59,7 +67,7 @@ class LinksController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect('/home');
     }
 
     /**
@@ -71,7 +79,14 @@ class LinksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $link = $this->user->links()->findOrFail($id);
+
+        $link->update($request->all());
+
+        return response()->json([
+            'data' => $link,
+            'message' => 'Link Edited'
+        ], 200);
     }
 
     /**
@@ -82,6 +97,12 @@ class LinksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $link = $this->user->links()->findOrFail($id);
+
+        $link->delete();
+
+        return response()->json([
+            'message' => 'Link Deleted'
+        ], 200);
     }
 }
