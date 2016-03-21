@@ -5822,8 +5822,46 @@ body {
     padding: 10px;
     margin-bottom: 0; }
     .tag-list h2 i {
-      float: right;
-      color: white; }
+      color: #fff;
+      cursor: pointer;
+      float: right; }
+    .tag-list h2 .tag-popover {
+      background: white;
+      width: 200px;
+      height: 145px;
+      position: absolute;
+      right: -65px;
+      z-index: 10;
+      top: 58px;
+      box-shadow: 2px 2px 2px #888; }
+      .tag-list h2 .tag-popover:after {
+        content: "";
+        position: absolute;
+        bottom: 145px;
+        left: 95px;
+        border-style: solid;
+        border-width: 0 9px 9px;
+        border-color: #fff transparent;
+        display: block;
+        width: 0;
+        z-index: 1; }
+      .tag-list h2 .tag-popover h4 {
+        font-size: 14px;
+        margin: 0;
+        padding: 10px;
+        color: #555;
+        background: #eee;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd; }
+      .tag-list h2 .tag-popover input {
+        width: 180px;
+        margin: 10px;
+        font-weight: 400; }
+      .tag-list h2 .tag-popover .btn {
+        width: 85px;
+        margin-top: 10px;
+        margin-left: 10px;
+        border-radius: 0; }
   .tag-list ul {
     padding: 0; }
     .tag-list ul li {

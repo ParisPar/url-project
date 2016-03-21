@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import TagItem from '../components/TagItem';
-import { fetchTags, clearTagFilters } from '../actions/actions';
+import { fetchTags, clearTagFilters, toggleTagPopover } from '../actions/actions';
+import CreateTagPopover from '../components/CreateTagPopover';
 
 class TagList extends Component {
-  componentWillMount() {
-    this.props.fetchTags();
-  }
 
   renderTags() {
+    // console.log('Running renderTags', this.props.tags);
     return (
       this.props.tags.map((tag) => {
         return (
@@ -24,11 +23,29 @@ class TagList extends Component {
     )
   }
 
+  tooglePopover() {
+    this.props.toggleTagPopover(!this.props.tagPopoverIsActive);
+  }
+
   render() {
     return (
       <div className="col-md-3">
         <div className="tag-list">
-          <h2>TAGS<a href=""><i className="fa fa-plus"></i></a></h2>
+          <h2>
+            TAGS
+            <i className="fa fa-plus"
+               onClick={this.tooglePopover.bind(this)}></i>
+            {(() => {
+              if(this.props.tagPopoverIsActive){
+                return (
+                  
+                  <CreateTagPopover />
+                  
+                );
+              }
+            })()}   
+          </h2>
+
           <hr />
           <ul>
             <li onClick={(e) => {
@@ -45,9 +62,10 @@ class TagList extends Component {
   }
 }
 
-function mapStateToProps({tags}) {
+function mapStateToProps({tags, tagPopoverIsActive}) {
   return {
-    tags
+    tags,
+    tagPopoverIsActive
   }
 }
 
@@ -58,6 +76,9 @@ function mapDispatchToProps(dispatch) {
     },
     clearTagFilters: () => {
       dispatch(clearTagFilters());
+    },
+    toggleTagPopover: (isActive) => {
+      dispatch(toggleTagPopover(isActive));
     }
   };
 }

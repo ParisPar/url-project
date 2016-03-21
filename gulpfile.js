@@ -22,6 +22,10 @@ elixir(function(mix) {
         'libs/remodal.js'
       ], './public/js/libs.js')
 
+      .scripts([
+        'scripts.js'
+      ], './public/js/scripts.js')
+
       .browserify([
         'index.js'
       ], './public/js/bundle.js')

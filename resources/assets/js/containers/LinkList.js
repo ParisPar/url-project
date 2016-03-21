@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchLinks, setSearchFilter } from '../actions/actions';
+import { setSearchFilter } from '../actions/actions';
 import LinkItem from '../components/LinkItem';
 
 function getFilteredLinks(links, searchFilter, tagFilters) {
@@ -36,9 +36,6 @@ function getFilteredLinks(links, searchFilter, tagFilters) {
 }
 
 class LinkList extends Component {
-  componentWillMount() {
-    this.props.fetchLinks();
-  }
 
   renderLinks() {
     return (
@@ -84,12 +81,4 @@ function mapStateToProps({links, searchFilter, tagFilters}) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchLinks: () => {
-      dispatch(fetchLinks());
-    }
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LinkList);
+export default connect(mapStateToProps)(LinkList);

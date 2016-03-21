@@ -37,7 +37,7 @@ body {
   .panel-body {
 
     h1 {
-      font-size: 40px;
+      font-size: 38px;
       font-weight: 300;
       color: $navbar-links-color;
       text-align: center;
@@ -52,20 +52,23 @@ body {
     margin: 15px 20px;
     font-size: 18px;
     input.form-control {
-      padding: 15px;
+      padding: 14px;
       font-size: 18px;
       height: auto;
     }
     input[type="checkbox"] {
       margin-top: 6px;
-      margin-left: -19px;
+      margin-left: -18px;
       -ms-transform: scale(1.4); /* IE */
       -moz-transform: scale(1.4); /* FF */
       -webkit-transform: scale(1.4); /* Safari and Chrome */
       -o-transform: scale(1.4); /* Opera */
     }
+    label {
+      font-size: 16px;
+    }
     button {
-      font-size: 24px;
+      font-size: 22px;
       padding-top: 10px;
       padding-bottom: 10px;
       width: 100%;

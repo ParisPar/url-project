@@ -5772,7 +5772,7 @@ body {
   max-width: 400px;
   margin: 0 auto; }
   .panel .panel-body h1 {
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 300;
     color: #286090;
     text-align: center;
@@ -5784,12 +5784,12 @@ body {
     margin: 15px 20px;
     font-size: 18px; }
     .panel .form-group input.form-control {
-      padding: 15px;
+      padding: 14px;
       font-size: 18px;
       height: auto; }
     .panel .form-group input[type="checkbox"] {
       margin-top: 6px;
-      margin-left: -19px;
+      margin-left: -18px;
       -ms-transform: scale(1.4);
       /* IE */
       -moz-transform: scale(1.4);
@@ -5798,8 +5798,10 @@ body {
       /* Safari and Chrome */
       -o-transform: scale(1.4);
       /* Opera */ }
+    .panel .form-group label {
+      font-size: 16px; }
     .panel .form-group button {
-      font-size: 24px;
+      font-size: 22px;
       padding-top: 10px;
       padding-bottom: 10px;
       width: 100%; }
