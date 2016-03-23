@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 
 use App\Http\Requests;
+use App\Http\Requests\LinkRequest;
 use App\Link;
 
 class LinksController extends Controller
@@ -36,19 +37,12 @@ class LinksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LinkRequest $request)
     {
+
         $link = new Link($request->all());
 
         $this->user->links()->save($link);
-
-        // Check if the user owns all the tags proviced through the 
-        // AJAX request. If not, return an error
-        if(! $this->userOwnsTags($request->tags)) {
-            return response()->json([
-                'message' => 'You are not authorized to modify the requested tags'
-            ], 403);
-        }
 
         foreach($request->tags as $tag) {
             $link->tags()->sync([ $tag['id'] ], false);
@@ -89,7 +83,7 @@ class LinksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LinkRequest $request, $id)
     {
         $link = $this->user->links()->findOrFail($id);
 
@@ -116,14 +110,5 @@ class LinksController extends Controller
         return response()->json([
             'message' => 'Link Deleted'
         ], 200);
-    }
-
-    private function userOwnsTags($tags) {
-        foreach($tags as $tag) {
-            if($this->user->tags()->find($tag['id']) == null) {
-                return false;
-            }
-        }
-        return true;   
     }
 }

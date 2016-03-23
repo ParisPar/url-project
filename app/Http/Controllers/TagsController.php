@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\TagRequest;
 use App\Tag;
 
 class TagsController extends Controller
@@ -35,8 +36,9 @@ class TagsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
+
         $tag = new Tag($request->all());
 
         $this->user->tags()->save($tag);
@@ -76,7 +78,7 @@ class TagsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TagRequest $request, $id)
     {
         $tag = $this->user->tags()->findOrFail($id);
 

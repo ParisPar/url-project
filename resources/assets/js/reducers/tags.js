@@ -15,7 +15,11 @@ export default (state = [], action) => {
     //one returned from the API call
     case 'CREATE_NEW_TAG':
       const tags = state.filter((tag) => tag.id != 123123123)
-      return [...tags, action.payload.data.data];
+      if(action.payload.data.message == 'Tag Created'){
+        return [...tags, action.payload.data.data];
+      } else {
+        return tags;
+      }
   }
   return state;
 }

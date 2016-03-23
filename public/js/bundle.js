@@ -25739,7 +25739,11 @@ exports.default = function () {
       var tags = state.filter(function (tag) {
         return tag.id != 123123123;
       });
-      return [].concat(_toConsumableArray(tags), [action.payload.data.data]);
+      if (action.payload.data.message == 'Tag Created') {
+        return [].concat(_toConsumableArray(tags), [action.payload.data.data]);
+      } else {
+        return tags;
+      }
   }
   return state;
 };
