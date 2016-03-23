@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { toggleTagPopover, createNewTag, optimisticTagCreate } from '../actions/actions';
 

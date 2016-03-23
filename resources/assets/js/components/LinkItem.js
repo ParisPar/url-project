@@ -4,11 +4,15 @@ export default (props) => {
   return (
     <li>
       <h3>
-        <a href="#">{props.title}</a>
+        <a href={props.url}>{props.title}</a>
         <a href="#"><i className="fa fa-trash-o"></i></a>
         <a href="#"><i className="fa fa-pencil"></i></a>
       </h3>
-      <hr />
+      {(() => {
+        if(props.description != null && props.description != '') {
+          return (<hr />)
+        }
+      })()}
       <p>
         {props.description}
       </p>

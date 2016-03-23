@@ -32,7 +32,8 @@ elixir(function(mix) {
 
       .styles([
         'libs/remodal.css',
-        'libs/remodal-default-theme.css'
+        'libs/remodal-default-theme.css',
+        'libs/react-select.css'
       ], './public/css/libs.css')
 
       .version(['css/app.css', 'css/auth.css', 'css/dashboard.css', 'js/bundle.js'])

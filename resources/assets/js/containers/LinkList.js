@@ -42,6 +42,7 @@ class LinkList extends Component {
       this.props.links.map((link) => {
         return (
           <LinkItem key={link.id}
+                    url={link.url}
                     title={link.title}
                     description={link.description}
                     tags={link.tags}

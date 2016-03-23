@@ -42,8 +42,20 @@ class LinksController extends Controller
 
         $this->user->links()->save($link);
 
+        // Check if the user owns all the tags proviced through the 
+        // AJAX request. If not, return an error
+        if(! $this->userOwnsTags($request->tags)) {
+            return response()->json([
+                'message' => 'You are not authorized to modify the requested tags'
+            ], 403);
+        }
+
+        foreach($request->tags as $tag) {
+            $link->tags()->sync([ $tag['id'] ], false);
+        }
+
         return response()->json([
-            'data' => $link,
+            'data' => $link->load('tags'),//Eager load relations on the model.
             'message' => 'Link Created'
         ], 200);
     }
@@ -104,5 +116,14 @@ class LinksController extends Controller
         return response()->json([
             'message' => 'Link Deleted'
         ], 200);
+    }
+
+    private function userOwnsTags($tags) {
+        foreach($tags as $tag) {
+            if($this->user->tags()->find($tag['id']) == null) {
+                return false;
+            }
+        }
+        return true;   
     }
 }

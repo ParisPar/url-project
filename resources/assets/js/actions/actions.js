@@ -63,7 +63,7 @@ export function optimisticTagCreate(tagName) {
 }
 
 export function createNewTag(tagName) {
-  console.log('Dispatching createNewTag', tagName);
+  // console.log('Dispatching createNewTag', tagName);
   const request = axios({
     method: 'post',
     url: '/tags',
@@ -74,6 +74,47 @@ export function createNewTag(tagName) {
 
   return {
     type: 'CREATE_NEW_TAG',
+    payload: request
+  }
+}
+
+export function toggleLinkModal(isActive) {
+  return {
+    type: 'TOGGLE_LINK_MODAL',
+    isActive
+  }
+}
+
+export function optimisticLinkCreate(link) {
+  return {
+    type: 'OPTIMISTIC_LINK_CREATE',
+    link: {
+      key: link.id,
+      id: link.id,
+      url: link.url,
+      title: link.title,
+      description: link.description,
+      tags: link.selectedTags
+    }
+  }
+}
+
+export function createNewLink(link) {
+  // console.log('Dispatching createNewLink', link);
+  const request = axios({
+    method: 'post',
+    url: '/links',
+    data: {
+      key: link.id,
+      url: link.url,
+      title: link.title,
+      description: link.description,
+      tags: link.selectedTags
+    }
+  });
+
+  return {
+    type: 'CREATE_NEW_LINK',
     payload: request
   }
 }

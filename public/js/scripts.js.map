@@ -1,1 +1,1 @@
-{"version":3,"sources":["scripts.js"],"names":[],"mappings":"AAAA","file":"scripts.js","sourcesContent":[""],"sourceRoot":"/source/"}
+{"version":3,"sources":["scripts.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA","file":"scripts.js","sourcesContent":["\n$( document ).ready(function() {\n  \n});"],"sourceRoot":"/source/"}
