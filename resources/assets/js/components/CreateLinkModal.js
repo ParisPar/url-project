@@ -27,6 +27,8 @@ export default class CreateLinkModal extends Component {
       description: '',
       tags: tagSelectArray,
       value: [],
+      userFocusedUrl: false,
+      userFocusedTitle: false
     });
   }
 
@@ -71,6 +73,21 @@ export default class CreateLinkModal extends Component {
     this.props.toggleLinkModal(false);
   }
 
+  showErrorForUrl() {
+    console.log(this.state.userFocusedUrl);
+    if(! this.state.userFocusedUrl) {
+      return false;
+    }
+    return this.state.url == '';
+  }
+
+  showErrorForTitle() {
+    if(! this.state.userFocusedTitle) {
+      return false;
+    }
+    return this.state.title == '';
+  }
+
   render() {
     return (
       <div id="link-modal-overlay">
@@ -79,21 +96,30 @@ export default class CreateLinkModal extends Component {
           <div className="modal-body">
             
 
-              <div className="form-group">
+              <div className={
+                this.showErrorForUrl() ? 'form-group has-error' : 'form-group'
+              }>
               <label htmlFor="url">Url</label>
+              <p>Some text</p>
               <div className="input-group">
                 <div className="input-group-addon"><i className="fa fa-link"></i></div>
                 <input id="url" className="form-control" type="url" placeholder="Url"
                        value={this.state.url}
-                       onChange={this.handleChange.bind(this, 'url')}/>
+                       onChange={this.handleChange.bind(this, 'url')}
+                       onBlur={() => this.setState({['userFocusedUrl']: true})}/>
               </div>
+              {this.showErrorForUrl() ? <span className="help-block">The url is required</span> : null}
               </div>
               <hr/>
 
-              <div className="form-group">
+              <div className={
+                this.showErrorForTitle() ? 'form-group has-error' : 'form-group'
+              }>
               <label htmlFor="title">Title</label>
               <input id="title" className="form-control" type="text" placeholder="Title"
-                     onChange={this.handleChange.bind(this, 'title')}/>
+                     onChange={this.handleChange.bind(this, 'title')}
+                     onBlur={() => this.setState({['userFocusedTitle']: true})}/>
+              {this.showErrorForTitle() ? <span className="help-block">The title is required</span> : null}
               </div>
 
               <div className="form-group">
@@ -116,6 +142,7 @@ export default class CreateLinkModal extends Component {
 
               <button className="btn btn-success"
                       onClick={this.handleSubmit.bind(this)}
+                      disabled={ this.state.url == '' || this.state.title == '' }
               >Save</button>
               <button className="btn btn-danger" 
                       onClick={this.handleClose.bind(this)}
@@ -146,6 +173,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(createNewLink(link));
     },
   };
+}
+
+function isURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return pattern.test(str);
 }
 
 

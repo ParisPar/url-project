@@ -5,11 +5,16 @@ import LinkList from '../containers/LinkList';
 import CreateLinkModal from '../components/CreateLinkModal';
 import { connect } from 'react-redux';
 import { fetchTags, fetchLinks, toggleLinkModal } from '../actions/actions';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import toastr from 'toastr';
 
 class App extends Component {
+
+  componentDidUpdate() {
+    console.log('App component updated!');
+  }
   
   componentWillMount() {
+    console.log('App component will mount!');
     this.props.fetchTags();
     this.props.fetchLinks();
   }
@@ -28,15 +33,7 @@ class App extends Component {
               <i className="fa fa-plus"></i>
               New Link
             </a>
-          {/* <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={100} transitionLeaveTimeout={100}>*/}
-            {(() => {
-              if(this.props.linkModalIsActive){
-                return (
-                    <CreateLinkModal />         
-                );
-              }
-            })()}
-            {/* </ReactCSSTransitionGroup>  */}
+            {this.props.linkModalIsActive ? <CreateLinkModal /> : null}
           </div>
           <SearchBar />
         </div>

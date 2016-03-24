@@ -1,4 +1,4 @@
-export default (state = null, action) => {
+export default (state = '', action) => {
   // console.log('Entered searchFilter reducer', action);
   switch(action.type) {
     case 'SET_SEARCH_FILTER':

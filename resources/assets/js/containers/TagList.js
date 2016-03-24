@@ -8,6 +8,26 @@ import CreateTagPopover from '../components/CreateTagPopover';
 
 class TagList extends Component {
 
+  componentDidMount() {
+    console.log('Tag List component mounted!');
+  }
+
+  componentWillReceiveProps() {
+    console.log('Tag List component receiving new props!');
+  }
+
+  componentWillUpdate() {
+    console.log('Tag List component will update!');
+  }
+
+  componentDidUpdate() {
+    console.log('Tag List component updated!');
+  }
+
+  componentWillUnmount() {
+    console.log('Tag List component will unmount!');
+  }
+
   renderTags() {
     // console.log('Running renderTags', this.props.tags);
     return (
@@ -65,7 +85,7 @@ class TagList extends Component {
 function mapStateToProps({tags, tagPopoverIsActive}) {
   return {
     tags,
-    tagPopoverIsActive
+    tagPopoverIsActive,
   }
 }
 

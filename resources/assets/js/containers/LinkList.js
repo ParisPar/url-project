@@ -1,45 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { setSearchFilter } from '../actions/actions';
 import LinkItem from '../components/LinkItem';
-
-function getFilteredLinks(links, searchFilter, tagFilters) {
-  // console.log('getFilteredLinks',...arguments);
-  if(searchFilter == null) {
-    searchFilter = '';
-  }
-
-  // Filter links by the search term
-  const lcSearchFilter = searchFilter.toLowerCase();
-  const searchFilteredLinks = links.filter((link) => {
-    return link.title.toLowerCase().includes(lcSearchFilter);
-  });
-
-  if(tagFilters.length == 0)
-    return searchFilteredLinks;
-
-  // Take the link already filtered by the search term
-  // and filter them by the selected tags
-  
-  return searchFilteredLinks.filter((link) => {
-    let matchesSelectedTags = false;
-    link.tags.forEach((tag) => {
-      if(tagFilters.includes(tag.id)) {
-        matchesSelectedTags = true;
-      }
-    })
-    if(matchesSelectedTags) {
-      return true;
-    }
-  })
-}
 
 class LinkList extends Component {
 
-  renderLinks() {
+  componentDidMount() {
+    console.log('Link List component mounted!');
+  }
+
+  componentWillReceiveProps() {
+    console.log('Link List component receiving new props!');
+  }
+
+  componentWillUpdate() {
+    console.log('Link List component will update!');
+  }
+
+  componentDidUpdate(newProps) {
+    console.log('Link List component updated!');
+  }
+
+  componentWillUnmount() {
+    console.log('Link List component will unmount!');
+  }
+
+  renderLinks(links) {
     return (
-      this.props.links.map((link) => {
+      links.map((link) => {
         return (
           <LinkItem key={link.id}
                     url={link.url}
@@ -62,12 +50,47 @@ class LinkList extends Component {
     )
   }
 
+  getFilteredLinks(links, searchFilter, tagFilters) {
+    // console.log('getFilteredLinks',...arguments);
+    if(searchFilter == null) {
+      searchFilter = '';
+    }
+
+    // Filter links by the search term
+    const lcSearchFilter = searchFilter.toLowerCase();
+    const searchFilteredLinks = links.filter((link) => {
+      return link.title.toLowerCase().includes(lcSearchFilter);
+    });
+
+    if(tagFilters.length == 0)
+      return searchFilteredLinks;
+
+    // Take the link already filtered by the search term
+    // and filter them by the selected tags
+    
+    return searchFilteredLinks.filter((link) => {
+      let matchesSelectedTags = false;
+      link.tags.forEach((tag) => {
+        if(tagFilters.includes(tag.id)) {
+          matchesSelectedTags = true;
+        }
+      })
+      if(matchesSelectedTags) {
+        return true;
+      }
+    })
+  }
+
+
+
   render() {
+    const visibleLinks = this.getFilteredLinks(this.props.links, this.props.searchFilter, this.props.tagFilters);
+
     return (
       <div className="col-md-9">
         <div className="app-main">
           <ul className="links-list">
-            {this.renderLinks()}
+            {this.renderLinks(visibleLinks)}
           </ul>
           {this.renderPagination()}
         </div>
@@ -78,8 +101,10 @@ class LinkList extends Component {
 
 function mapStateToProps({links, searchFilter, tagFilters}) {
   return {
-    links: getFilteredLinks(links, searchFilter, tagFilters)
+    links,
+    searchFilter,
+    tagFilters
   }
 }
 
-export default connect(mapStateToProps)(LinkList);
+export default connect(mapStateToProps, null)(LinkList);

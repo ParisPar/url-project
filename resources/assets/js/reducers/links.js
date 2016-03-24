@@ -1,3 +1,5 @@
+import toastr from 'toastr';
+
 export default (state = [], action) => {
   // console.log('Entered links reducer', action);
   switch(action.type) {
@@ -12,6 +14,7 @@ export default (state = [], action) => {
     //one returned from the API call
     case 'CREATE_NEW_LINK':
       const links = state.filter((link) => link.id != 123123123)
+      toastr.success("Link was successfully created!");
       if(action.payload.data.message == 'Link Created'){
         return [...links, action.payload.data.data];
       } else {

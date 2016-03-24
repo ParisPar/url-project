@@ -38,7 +38,7 @@ class LinkRequest extends Request
     public function rules()
     {
         return [
-            'url' => 'required|url',
+            'url' => 'required',
             'title' => 'required',
         ];
     }

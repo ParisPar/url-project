@@ -4,6 +4,26 @@ import { connect } from 'react-redux';
 import { setSearchFilter } from '../actions/actions';
 
 class SearchBar extends Component {
+  componentDidMount() {
+    console.log('Search Bar component mounted!');
+  }
+
+  componentWillReceiveProps() {
+    console.log('Search Bar component receiving new props!');
+  }
+
+  componentWillUpdate() {
+    console.log('Search Bar component will update!');
+  }
+
+  componentDidUpdate() {
+    console.log('Search Bar component updated!');
+  }
+
+  componentWillUnmount() {
+    console.log('Search Bar component will unmount!');
+  }
+
   dispatchSearchFilterAction(event) {
     console.log('Entered dispatchSearchFilterAction', event.target.value, this.props);
     this.props.setSearchFilter(event.target.value);
