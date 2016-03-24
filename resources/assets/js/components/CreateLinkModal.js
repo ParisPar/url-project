@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { toggleLinkModal, optimisticLinkCreate, createNewLink} from '../actions/actions';
+import { optimisticLinkCreate, createNewLink} from '../actions/actions';
 import Select from 'react-select';
 
+
+
 export default class CreateLinkModal extends Component {
+
+  constructor(props, context){
+    super(props);
+    this.context = context;
+  }
 
   componentWillMount() {
 
@@ -36,11 +43,11 @@ export default class CreateLinkModal extends Component {
     const overlay = document.getElementById('link-modal-overlay');
     const modal = document.getElementById('link-modal');
 
-    // When the overlay is clicked, send an action
-    // to stop displaying the link creation modal
+    // When the overlay is clicked, redirect
+    // through react-router to /home
     overlay.onclick = (e) => {
       if(e.target == overlay) {
-        this.props.toggleLinkModal(false);
+        this.context.router.push('/home');
       }
     }
   }
@@ -54,7 +61,6 @@ export default class CreateLinkModal extends Component {
     })
     // console.log('Submitted', this.state);
     this.props.createNewLink(this.state);
-    this.props.toggleLinkModal(false);
   }
 
   handleChange(field, event) {
@@ -70,11 +76,10 @@ export default class CreateLinkModal extends Component {
   // Send an action to close the modal when the
   // Close button is pressed
   handleClose() {
-    this.props.toggleLinkModal(false);
+    this.props.history.push('/home');
   }
 
   showErrorForUrl() {
-    console.log(this.state.userFocusedUrl);
     if(! this.state.userFocusedUrl) {
       return false;
     }
@@ -156,18 +161,18 @@ export default class CreateLinkModal extends Component {
   }
 }
 
-function mapStateToProps({tags, linkModalIsActive}) {
+CreateLinkModal.contextTypes = {
+    router: React.PropTypes.object.isRequired
+};
+
+function mapStateToProps({tags}) {
   return {
-    tags,
-    linkModalIsActive
+    tags
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleLinkModal: (isActive) => {
-      dispatch(toggleLinkModal(isActive));
-    },
     createNewLink: (link) => {
       dispatch(optimisticLinkCreate(link));
       dispatch(createNewLink(link));

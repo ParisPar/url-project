@@ -49,7 +49,7 @@ class TagList extends Component {
 
   render() {
     return (
-      <div className="col-md-3">
+      <div className="col-sm-3">
         <div className="tag-list">
           <h2>
             TAGS

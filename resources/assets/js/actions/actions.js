@@ -78,13 +78,6 @@ export function createNewTag(tagName) {
   }
 }
 
-export function toggleLinkModal(isActive) {
-  return {
-    type: 'TOGGLE_LINK_MODAL',
-    isActive
-  }
-}
-
 export function optimisticLinkCreate(link) {
   return {
     type: 'OPTIMISTIC_LINK_CREATE',

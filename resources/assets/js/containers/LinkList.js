@@ -87,7 +87,7 @@ class LinkList extends Component {
     const visibleLinks = this.getFilteredLinks(this.props.links, this.props.searchFilter, this.props.tagFilters);
 
     return (
-      <div className="col-md-9">
+      <div className="col-sm-9">
         <div className="app-main">
           <ul className="links-list">
             {this.renderLinks(visibleLinks)}

@@ -37,4 +37,6 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::resource('links', 'LinksController');
     Route::resource('tags', 'TagsController');
+
+    Route::get('{path?}', 'HomeController@index')->where('path', '.*');
 });

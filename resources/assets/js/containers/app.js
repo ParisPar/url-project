@@ -4,8 +4,10 @@ import TagList from '../containers/TagList';
 import LinkList from '../containers/LinkList';
 import CreateLinkModal from '../components/CreateLinkModal';
 import { connect } from 'react-redux';
-import { fetchTags, fetchLinks, toggleLinkModal } from '../actions/actions';
+import { fetchTags, fetchLinks } from '../actions/actions';
 import toastr from 'toastr';
+import { Link } from 'react-router';
+
 
 class App extends Component {
 
@@ -19,21 +21,17 @@ class App extends Component {
     this.props.fetchLinks();
   }
 
-  toggleModal() {
-    this.props.toggleLinkModal(true);
-  }
-
   render() {
+    //let linkModal = this.props.children && React.cloneElement(this.props.children);
     return (
       <div>
         <div className="row">
-          <div className="col-md-3">
-            <a href="#" id="new-button" className="btn btn-primary"
-               onClick={this.toggleModal.bind(this)}>
+          <div className="col-sm-3">
+            <Link to="/home/new" id="new-button" className="btn btn-primary">
               <i className="fa fa-plus"></i>
               New Link
-            </a>
-            {this.props.linkModalIsActive ? <CreateLinkModal /> : null}
+            </Link>
+            {this.props.children}
           </div>
           <SearchBar />
         </div>
@@ -46,12 +44,6 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({linkModalIsActive}) {
-  return {
-    linkModalIsActive
-  }
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     fetchTags: () => {
@@ -59,11 +51,8 @@ function mapDispatchToProps(dispatch) {
     },
     fetchLinks: () => {
       dispatch(fetchLinks());
-    },
-    toggleLinkModal: (isActive) => {
-      dispatch(toggleLinkModal(isActive));
     }
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
