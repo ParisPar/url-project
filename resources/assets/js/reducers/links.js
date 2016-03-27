@@ -36,6 +36,13 @@ export default (state = [], action) => {
         let links = state.filter((link) => link.id != action.payload.data.data.id)
         return [...links, action.payload.data.data];
       } 
+
+    case 'DELETE_LINK':
+      if(action.payload.data.message == 'Link Deleted'){
+        toastr.success("Link was successfully deleted!");
+        let links = state.filter((link) => link.id != action.payload.data.data.id)
+        return links;
+      } 
   }
   return state;
 }

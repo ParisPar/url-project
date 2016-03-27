@@ -38733,6 +38733,7 @@ exports.optimisticLinkCreate = optimisticLinkCreate;
 exports.createNewLink = createNewLink;
 exports.editLink = editLink;
 exports.createLink = createLink;
+exports.deleteLink = deleteLink;
 
 var _axios = require('axios');
 
@@ -38884,6 +38885,20 @@ function createLink(link, tagIds) {
 
   return {
     type: 'CREATE_LINK',
+    payload: request
+  };
+}
+
+function deleteLink(linkId) {
+  // console.log('Dispatching editLink', link);
+  var request = (0, _axios2.default)({
+    method: 'delete',
+    url: '/links/' + linkId,
+    data: {}
+  });
+
+  return {
+    type: 'DELETE_LINK',
     payload: request
   };
 }
@@ -39557,8 +39572,8 @@ exports.default = function (props) {
         _react2.default.createElement('i', { className: 'fa fa-pencil' })
       ),
       _react2.default.createElement(
-        'a',
-        { href: '#' },
+        _reactRouter.Link,
+        { to: "/home/delete/" + props.id },
         _react2.default.createElement('i', { className: 'fa fa-trash-o' })
       )
     ),
@@ -39906,6 +39921,198 @@ var _actions = require('../actions/actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DeleteLink = function (_Component) {
+  _inherits(DeleteLink, _Component);
+
+  function DeleteLink() {
+    _classCallCheck(this, DeleteLink);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(DeleteLink).apply(this, arguments));
+  }
+
+  _createClass(DeleteLink, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      // Find the link to be edited
+      var link = this.props.links.find(function (link) {
+        return link.id == _this2.props.params.linkId;
+      });
+
+      // If the link id that was passed via the url
+      // doesn't exist, redirect to /home
+      if (!link) {
+        this.context.router.push('/home');
+      }
+
+      this.setState({
+        linkToDelete: link
+      });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this3 = this;
+
+      var overlay = document.getElementById('link-modal-overlay');
+      var modal = document.getElementById('link-modal');
+
+      // When the overlay is clicked, redirect
+      // through react-router to /home
+      overlay.onclick = function (e) {
+        if (e.target == overlay) {
+          _this3.handleClose();
+        }
+      };
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit() {
+      this.props.deleteLink(this.props.params.linkId);
+
+      this.context.router.push('/home');
+    }
+  }, {
+    key: 'handleClose',
+    value: function handleClose() {
+      this.context.router.push('/home');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { id: 'link-modal-overlay' },
+        _react2.default.createElement(
+          'div',
+          { id: 'link-modal' },
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Are you sure you want to delete the following link?'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'modal-body' },
+            _react2.default.createElement(
+              'strong',
+              null,
+              'Url:'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: this.state.linkToDelete.url },
+                this.state.linkToDelete.url
+              )
+            ),
+            _react2.default.createElement(
+              'strong',
+              null,
+              'Title:'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              this.state.linkToDelete.title
+            ),
+            _react2.default.createElement(
+              'strong',
+              null,
+              'Description:'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              this.state.linkToDelete.description
+            ),
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-danger',
+                onClick: function onClick() {
+                  return _this4.handleSubmit();
+                }
+              },
+              'Yes'
+            ),
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-default',
+                onClick: function onClick() {
+                  return _this4.handleClose();
+                }
+              },
+              'No'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return DeleteLink;
+}(_react.Component);
+
+DeleteLink.contextTypes = {
+  router: _react2.default.PropTypes.object.isRequired
+};
+
+function mapStateToProps(_ref) {
+  var links = _ref.links;
+
+  return {
+    links: links
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteLink: function deleteLink(link) {
+      dispatch((0, _actions.deleteLink)(link));
+    }
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DeleteLink);
+
+},{"../actions/actions":271,"../components/LinkForm":274,"react":256,"react-addons-update":76,"react-redux":81}],280:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _LinkForm = require('../components/LinkForm');
+
+var _LinkForm2 = _interopRequireDefault(_LinkForm);
+
+var _reactAddonsUpdate = require('react-addons-update');
+
+var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+
+var _actions = require('../actions/actions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40038,7 +40245,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EditLink);
 
-},{"../actions/actions":271,"../components/LinkForm":274,"react":256,"react-addons-update":76,"react-redux":81}],280:[function(require,module,exports){
+},{"../actions/actions":271,"../components/LinkForm":274,"react":256,"react-addons-update":76,"react-redux":81}],281:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40217,7 +40424,7 @@ function mapStateToProps(_ref) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(LinkList);
 
-},{"../components/LinkItem":275,"react":256,"react-redux":81}],281:[function(require,module,exports){
+},{"../components/LinkItem":275,"react":256,"react-redux":81}],282:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40318,7 +40525,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchBar);
 
-},{"../actions/actions":271,"react":256,"react-redux":81}],282:[function(require,module,exports){
+},{"../actions/actions":271,"react":256,"react-redux":81}],283:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40480,7 +40687,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TagList);
 
-},{"../actions/actions":271,"../components/CreateTagPopover":273,"../components/TagItem":276,"react":256,"react-redux":81,"redux":263}],283:[function(require,module,exports){
+},{"../actions/actions":271,"../components/CreateTagPopover":273,"../components/TagItem":276,"react":256,"react-redux":81,"redux":263}],284:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40597,7 +40804,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(App);
 
-},{"../actions/actions":271,"../components/CreateLinkModal":272,"../containers/LinkList":280,"../containers/SearchBar":281,"../containers/TagList":282,"react":256,"react-redux":81,"react-router":115,"toastr":269}],284:[function(require,module,exports){
+},{"../actions/actions":271,"../components/CreateLinkModal":272,"../containers/LinkList":281,"../containers/SearchBar":282,"../containers/TagList":283,"react":256,"react-redux":81,"react-router":115,"toastr":269}],285:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -40642,6 +40849,10 @@ var _CreateLink = require('./containers/CreateLink');
 
 var _CreateLink2 = _interopRequireDefault(_CreateLink);
 
+var _DeleteLink = require('./containers/DeleteLink');
+
+var _DeleteLink2 = _interopRequireDefault(_DeleteLink);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var storeWithMiddleware = (0, _redux.applyMiddleware)(_reduxPromise2.default)(_redux.createStore);
@@ -40656,12 +40867,13 @@ _reactDom2.default.render(_react2.default.createElement(
       _reactRouter.Route,
       { path: '/home', component: _app2.default },
       _react2.default.createElement(_reactRouter.Route, { path: '/home/new', component: _CreateLink2.default }),
-      _react2.default.createElement(_reactRouter.Route, { path: '/home/edit/:linkId', component: _EditLink2.default })
+      _react2.default.createElement(_reactRouter.Route, { path: '/home/edit/:linkId', component: _EditLink2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/home/delete/:linkId', component: _DeleteLink2.default })
     )
   )
 ), document.getElementById('root'));
 
-},{"./components/CreateLinkModal":272,"./components/TestComponent":277,"./containers/CreateLink":278,"./containers/EditLink":279,"./containers/app":283,"./reducers":285,"react":256,"react-dom":77,"react-redux":81,"react-router":115,"redux":263,"redux-promise":257}],285:[function(require,module,exports){
+},{"./components/CreateLinkModal":272,"./components/TestComponent":277,"./containers/CreateLink":278,"./containers/DeleteLink":279,"./containers/EditLink":280,"./containers/app":284,"./reducers":286,"react":256,"react-dom":77,"react-redux":81,"react-router":115,"redux":263,"redux-promise":257}],286:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40702,7 +40914,7 @@ var rootReducer = (0, _redux.combineReducers)({
 
 exports.default = rootReducer;
 
-},{"./links":286,"./searchFilter":287,"./tagFilters":288,"./tagPopover":289,"./tags":290,"redux":263}],286:[function(require,module,exports){
+},{"./links":287,"./searchFilter":288,"./tagFilters":289,"./tagPopover":290,"./tags":291,"redux":263}],287:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40760,11 +40972,20 @@ exports.default = function () {
         });
         return [].concat(_toConsumableArray(_links), [action.payload.data.data]);
       }
+
+    case 'DELETE_LINK':
+      if (action.payload.data.message == 'Link Deleted') {
+        _toastr2.default.success("Link was successfully deleted!");
+        var _links2 = state.filter(function (link) {
+          return link.id != action.payload.data.data.id;
+        });
+        return _links2;
+      }
   }
   return state;
 };
 
-},{"toastr":269}],287:[function(require,module,exports){
+},{"toastr":269}],288:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40783,7 +41004,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],288:[function(require,module,exports){
+},{}],289:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40820,7 +41041,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],289:[function(require,module,exports){
+},{}],290:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40839,7 +41060,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],290:[function(require,module,exports){
+},{}],291:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40881,6 +41102,6 @@ exports.default = function () {
   return state;
 };
 
-},{}]},{},[284]);
+},{}]},{},[285]);
 
 //# sourceMappingURL=bundle.js.map

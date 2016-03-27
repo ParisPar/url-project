@@ -10,7 +10,9 @@ export default (props) => {
         <Link to={"/home/edit/" + props.id}>
           <i className="fa fa-pencil"></i>
         </Link>
-        <a href="#"><i className="fa fa-trash-o"></i></a>
+        <Link to={"/home/delete/" + props.id}>
+          <i className="fa fa-trash-o"></i>
+        </Link>
       </h3>
       {(() => {
         if(props.description != null && props.description != '') {

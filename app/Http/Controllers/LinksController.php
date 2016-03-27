@@ -108,6 +108,7 @@ class LinksController extends Controller
         $link->delete();
 
         return response()->json([
+            'data' => $link->load('tags'),//Eager load relations on the model.
             'message' => 'Link Deleted'
         ], 200);
     }

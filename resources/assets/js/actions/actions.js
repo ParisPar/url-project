@@ -147,3 +147,19 @@ export function createLink(link, tagIds) {
     payload: request
   }
 }
+
+export function deleteLink(linkId) {
+  // console.log('Dispatching editLink', link);
+  const request = axios({
+    method: 'delete',
+    url: '/links/' + linkId,
+    data: {
+
+    }
+  });
+
+  return {
+    type: 'DELETE_LINK',
+    payload: request
+  }
+}
