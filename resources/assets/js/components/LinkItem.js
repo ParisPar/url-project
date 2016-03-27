@@ -1,12 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router';
+
 
 export default (props) => {
   return (
     <li>
       <h3>
         <a href={props.url}>{props.title}</a>
+        <Link to={"/home/edit/" + props.id}>
+          <i className="fa fa-pencil"></i>
+        </Link>
         <a href="#"><i className="fa fa-trash-o"></i></a>
-        <a href="#"><i className="fa fa-pencil"></i></a>
       </h3>
       {(() => {
         if(props.description != null && props.description != '') {

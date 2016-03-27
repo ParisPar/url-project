@@ -5757,6 +5757,10 @@ body {
   background-repeat: no-repeat;
   min-height: 535px; }
 
+.toast-top-right {
+  top: 62px;
+  right: 54px; }
+
 .navbar-default {
   background-color: rgba(11, 30, 53, 0.8);
   border: none;

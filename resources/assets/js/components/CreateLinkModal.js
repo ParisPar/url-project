@@ -6,12 +6,7 @@ import Select from 'react-select';
 
 
 
-export default class CreateLinkModal extends Component {
-
-  constructor(props, context){
-    super(props);
-    this.context = context;
-  }
+class CreateLinkModal extends Component {
 
   componentWillMount() {
 
@@ -70,13 +65,14 @@ export default class CreateLinkModal extends Component {
   }
 
   handleSelectChange (value) {
+    console.log(value, this.state);
     this.setState({ value });
   }
 
   // Send an action to close the modal when the
   // Close button is pressed
   handleClose() {
-    this.props.history.push('/home');
+    this.context.router.push('/home');
   }
 
   showErrorForUrl() {

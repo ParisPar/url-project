@@ -15,14 +15,15 @@ class LinkRequest extends Request
      */
     public function authorize()
     {
-        $tags = request()->tags;
+        $tagIds = request()->tagIds;
+
         $userId = Auth::user()->id;
 
         // Check if the user owns all the tags proviced through the 
         // AJAX request. If not, return an error
         
-        foreach($tags as $tag) {
-            if(! Tag::where('id', $tag['id'])->where('user_id', $userId)->exists()) {
+        foreach($tagIds as $tagId) {
+            if(! Tag::where('id', $tagId)->where('user_id', $userId)->exists()) {
                 return false;
             }
         }

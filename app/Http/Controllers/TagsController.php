@@ -17,7 +17,7 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return $this->user->tags()->get();
+        return $this->user->tags()->orderBy('name')->get();
     }
 
     /**

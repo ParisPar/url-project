@@ -82,7 +82,6 @@ export function optimisticLinkCreate(link) {
   return {
     type: 'OPTIMISTIC_LINK_CREATE',
     link: {
-      key: link.id,
       id: link.id,
       url: link.url,
       title: link.title,
@@ -98,7 +97,6 @@ export function createNewLink(link) {
     method: 'post',
     url: '/links',
     data: {
-      key: link.id,
       url: link.url,
       title: link.title,
       description: link.description,
@@ -108,6 +106,44 @@ export function createNewLink(link) {
 
   return {
     type: 'CREATE_NEW_LINK',
+    payload: request
+  }
+}
+
+export function editLink(link, tagIds) {
+  // console.log('Dispatching editLink', link);
+  const request = axios({
+    method: 'patch',
+    url: '/links/'+link.id,
+    data: {
+      url: link.url,
+      title: link.title,
+      description: link.description,
+      tagIds
+    }
+  });
+
+  return {
+    type: 'EDIT_LINK',
+    payload: request
+  }
+}
+
+export function createLink(link, tagIds) {
+  // console.log('Dispatching editLink', link);
+  const request = axios({
+    method: 'post',
+    url: '/links',
+    data: {
+      url: link.url,
+      title: link.title,
+      description: link.description,
+      tagIds
+    }
+  });
+
+  return {
+    type: 'CREATE_LINK',
     payload: request
   }
 }

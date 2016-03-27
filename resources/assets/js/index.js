@@ -10,6 +10,8 @@ import App from './containers/app';
 import TestComponent from './components/TestComponent';
 import rootReducer from './reducers';
 import CreateLinkModal from './components/CreateLinkModal';
+import EditLink from './containers/EditLink';
+import CreateLink from './containers/CreateLink';
 
 
 const storeWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
@@ -18,7 +20,8 @@ ReactDOM.render(
   <Provider store={storeWithMiddleware(rootReducer)}>
   <Router history={browserHistory}>
   <Route path="/home" component={App}>
-    <Route path="/home/new" component={CreateLinkModal} />
+    <Route path="/home/new" component={CreateLink} />
+    <Route path="/home/edit/:linkId" component={EditLink} />
   </Route>
   </Router>
   </Provider>

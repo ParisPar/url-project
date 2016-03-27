@@ -30,6 +30,7 @@ class LinkList extends Component {
       links.map((link) => {
         return (
           <LinkItem key={link.id}
+                    id={link.id}
                     url={link.url}
                     title={link.title}
                     description={link.description}

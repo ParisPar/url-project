@@ -18,7 +18,7 @@ class LinksController extends Controller
      */
     public function index()
     {
-        return $this->user->links()->with('tags')->get();
+        return $this->user->links()->with('tags')->orderBy('title')->get();
     }
 
     /**
@@ -44,9 +44,7 @@ class LinksController extends Controller
 
         $this->user->links()->save($link);
 
-        foreach($request->tags as $tag) {
-            $link->tags()->sync([ $tag['id'] ], false);
-        }
+        $link->tags()->sync($request->tagIds);
 
         return response()->json([
             'data' => $link->load('tags'),//Eager load relations on the model.
@@ -89,8 +87,10 @@ class LinksController extends Controller
 
         $link->update($request->all());
 
+        $link->tags()->sync($request->tagIds);
+
         return response()->json([
-            'data' => $link,
+            'data' => $link->load('tags'),//Eager load relations on the model.
             'message' => 'Link Edited'
         ], 200);
     }
