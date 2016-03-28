@@ -43,6 +43,14 @@ export default (state = [], action) => {
         let links = state.filter((link) => link.id != action.payload.data.data.id)
         return links;
       } 
+    case 'EXPORT_TO_PDF':
+      console.log(action.payload.data);
+      var reader = new FileReader();
+        reader.onload = function(e) {
+          $("a#export").attr({"href": e.target.result, "download":"filename"})
+          .get().click()
+        } 
+        reader.readAsDataURL(new Blob([data]));
   }
   return state;
 }

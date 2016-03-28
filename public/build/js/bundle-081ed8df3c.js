@@ -38734,6 +38734,7 @@ exports.createNewLink = createNewLink;
 exports.editLink = editLink;
 exports.createLink = createLink;
 exports.deleteLink = deleteLink;
+exports.exportToPdf = exportToPdf;
 
 var _axios = require('axios');
 
@@ -38899,6 +38900,20 @@ function deleteLink(linkId) {
 
   return {
     type: 'DELETE_LINK',
+    payload: request
+  };
+}
+
+function exportToPdf() {
+  var request = (0, _axios2.default)({
+    method: 'get',
+    url: 'links/export'
+  });
+
+  console.log(request);
+
+  return {
+    type: 'EXPORT_TO_PDF',
     payload: request
   };
 }
@@ -40494,7 +40509,7 @@ var SearchBar = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'col-sm-9' },
+        { className: 'col-sm-7' },
         _react2.default.createElement(
           'div',
           { id: 'search-box-custom' },
@@ -40776,7 +40791,20 @@ var App = function (_Component) {
             ),
             this.props.children
           ),
-          _react2.default.createElement(_SearchBar2.default, null)
+          _react2.default.createElement(_SearchBar2.default, null),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-sm-2' },
+            _react2.default.createElement(
+              'a',
+              { id: 'export-button',
+                className: 'btn btn-primary',
+                href: '/links/export'
+              },
+              _react2.default.createElement('i', { className: 'fa fa-file-pdf-o' }),
+              'Export To PDF'
+            )
+          )
         ),
         _react2.default.createElement(
           'div',
@@ -40981,6 +41009,13 @@ exports.default = function () {
         });
         return _links2;
       }
+    case 'EXPORT_TO_PDF':
+      console.log(action.payload.data);
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("a#export").attr({ "href": e.target.result, "download": "filename" }).get().click();
+      };
+      reader.readAsDataURL(new Blob([data]));
   }
   return state;
 };

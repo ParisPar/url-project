@@ -35,8 +35,16 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
+    Route::get('links/export', function() {
+        // return view('pdf.links');
+        $pdf = PDF::loadView('pdf.links');
+        return $pdf->download('Url Project - My Links.pdf');
+    });
+
     Route::resource('links', 'LinksController');
     Route::resource('tags', 'TagsController');
+
+
 
     Route::get('{path?}', 'HomeController@index')->where('path', '.*');
 });

@@ -163,3 +163,17 @@ export function deleteLink(linkId) {
     payload: request
   }
 }
+
+export function exportToPdf() {
+  const request = axios({
+    method: 'get',
+    url: 'links/export'
+  });
+
+  console.log(request);
+
+  return {
+    type: 'EXPORT_TO_PDF',
+    payload: request
+  }
+}

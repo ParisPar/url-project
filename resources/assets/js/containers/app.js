@@ -8,7 +8,6 @@ import { fetchTags, fetchLinks } from '../actions/actions';
 import toastr from 'toastr';
 import { Link } from 'react-router';
 
-
 class App extends Component {
 
   componentDidUpdate() {
@@ -34,6 +33,12 @@ class App extends Component {
             {this.props.children}
           </div>
           <SearchBar />
+          <div className="col-sm-2">
+          <a id="export-button"
+             className="btn btn-primary"
+             href="/links/export"
+             ><i className="fa fa-file-pdf-o"></i>Export To PDF</a>
+          </div>
         </div>
         <div className="row links-main">
           <TagList />

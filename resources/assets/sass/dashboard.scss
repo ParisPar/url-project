@@ -58,6 +58,54 @@ body {
   }
 }
 
+#search-box {
+  input{
+    width: 100%;
+  }
+}
+
+#search-box-custom {
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+  input{
+    width: 80%;
+    height: 42px;
+    background: rgba(255,255,255,0.4);
+    border: none;
+    font-size: 10pt;
+    float: left;
+    color: #63717f;
+    padding-left: 45px;
+    border-radius: 5px;
+  }
+  .icon {
+    position: absolute;
+    font-size: 18px;
+    top: 50%;
+    margin-left: 15px;
+    margin-top: 8px;
+    z-index: 1;
+    color: #4f5b66;
+  }
+}
+
+#export-button {
+  background-color: rgba(213,49,12,1);// D5310C
+  border: none;
+  border-radius: 0;
+  font-size: 13px;
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  .fa {
+    margin-right: 5px;
+  }
+  &:hover {
+    background-color: rgba(213,49,12,0.8);
+  }
+}
+
 #link-modal-overlay {
   display: block;
   position: fixed; /* Stay in place */
@@ -128,38 +176,7 @@ body {
   
 }
 
-#search-box {
-  input{
-    width: 100%;
-  }
-}
 
-#search-box-custom {
-  width: 300px;
-  vertical-align: middle;
-  white-space: nowrap;
-  position: relative;
-  input{
-    width: 300px;
-    height: 42px;
-    background: rgba(255,255,255,0.4);
-    border: none;
-    font-size: 10pt;
-    float: left;
-    color: #63717f;
-    padding-left: 45px;
-    border-radius: 5px;
-  }
-  .icon {
-    position: absolute;
-    font-size: 18px;
-    top: 50%;
-    margin-left: 15px;
-    margin-top: 8px;
-    z-index: 1;
-    color: #4f5b66;
-  }
-}
 
 .tag-list {
   background: #333;

@@ -31,7 +31,7 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div className="col-sm-9">
+      <div className="col-sm-7">
         <div id="search-box-custom">
           <span className="icon">
             <i className="fa fa-search"></i>
