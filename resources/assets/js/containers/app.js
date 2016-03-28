@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import SearchBar from '../containers/SearchBar';
 import TagList from '../containers/TagList';
 import LinkList from '../containers/LinkList';
-import CreateLinkModal from '../components/CreateLinkModal';
 import { connect } from 'react-redux';
-import { fetchTags, fetchLinks } from '../actions/actions';
+import { fetchTags, fetchLinks, toggleTagPopover } from '../actions/actions';
 import toastr from 'toastr';
 import { Link } from 'react-router';
 
 class App extends Component {
 
-  componentDidUpdate() {
-    console.log('App component updated!');
+  componentWillUpdate() {
+    this.props.toggleTagPopover(false);
   }
   
   componentWillMount() {
@@ -56,7 +55,10 @@ function mapDispatchToProps(dispatch) {
     },
     fetchLinks: () => {
       dispatch(fetchLinks());
-    }
+    },
+    toggleTagPopover: (isActive) => {
+      dispatch(toggleTagPopover(isActive));
+    },
   };
 }
 

@@ -38939,298 +38939,6 @@ var _reactRedux = require('react-redux');
 
 var _actions = require('../actions/actions');
 
-var _reactSelect = require('react-select');
-
-var _reactSelect2 = _interopRequireDefault(_reactSelect);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CreateLinkModal = function (_Component) {
-  _inherits(CreateLinkModal, _Component);
-
-  function CreateLinkModal() {
-    _classCallCheck(this, CreateLinkModal);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(CreateLinkModal).apply(this, arguments));
-  }
-
-  _createClass(CreateLinkModal, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-
-      // Recreate the tags array for an accepted format
-      // needed by react-select
-      var tagSelectArray = [];
-      this.props.tags.forEach(function (tag) {
-        tagSelectArray.push({
-          value: tag.id,
-          label: tag.name
-        });
-      });
-
-      // Set an initial state the updates as the user
-      // enters data in the link creation modal
-      this.setState({
-        id: 123123123,
-        url: '',
-        title: '',
-        description: '',
-        tags: tagSelectArray,
-        value: [],
-        userFocusedUrl: false,
-        userFocusedTitle: false
-      });
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var overlay = document.getElementById('link-modal-overlay');
-      var modal = document.getElementById('link-modal');
-
-      // When the overlay is clicked, redirect
-      // through react-router to /home
-      overlay.onclick = function (e) {
-        if (e.target == overlay) {
-          _this2.context.router.push('/home');
-        }
-      };
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit() {
-      this.state.selectedTags = this.state.value.map(function (tag) {
-        return {
-          id: tag.value,
-          name: tag.label
-        };
-      });
-      // console.log('Submitted', this.state);
-      this.props.createNewLink(this.state);
-    }
-  }, {
-    key: 'handleChange',
-    value: function handleChange(field, event) {
-      this.setState(_defineProperty({}, field, event.target.value));
-    }
-  }, {
-    key: 'handleSelectChange',
-    value: function handleSelectChange(value) {
-      console.log(value, this.state);
-      this.setState({ value: value });
-    }
-
-    // Send an action to close the modal when the
-    // Close button is pressed
-
-  }, {
-    key: 'handleClose',
-    value: function handleClose() {
-      this.context.router.push('/home');
-    }
-  }, {
-    key: 'showErrorForUrl',
-    value: function showErrorForUrl() {
-      if (!this.state.userFocusedUrl) {
-        return false;
-      }
-      return this.state.url == '';
-    }
-  }, {
-    key: 'showErrorForTitle',
-    value: function showErrorForTitle() {
-      if (!this.state.userFocusedTitle) {
-        return false;
-      }
-      return this.state.title == '';
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
-
-      return _react2.default.createElement(
-        'div',
-        { id: 'link-modal-overlay' },
-        _react2.default.createElement(
-          'div',
-          { id: 'link-modal' },
-          _react2.default.createElement(
-            'h3',
-            null,
-            'Add a new Link'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'modal-body' },
-            _react2.default.createElement(
-              'div',
-              { className: this.showErrorForUrl() ? 'form-group has-error' : 'form-group' },
-              _react2.default.createElement(
-                'label',
-                { htmlFor: 'url' },
-                'Url'
-              ),
-              _react2.default.createElement(
-                'p',
-                null,
-                'Some text'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'input-group' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'input-group-addon' },
-                  _react2.default.createElement('i', { className: 'fa fa-link' })
-                ),
-                _react2.default.createElement('input', { id: 'url', className: 'form-control', type: 'url', placeholder: 'Url',
-                  value: this.state.url,
-                  onChange: this.handleChange.bind(this, 'url'),
-                  onBlur: function onBlur() {
-                    return _this3.setState(_defineProperty({}, 'userFocusedUrl', true));
-                  } })
-              ),
-              this.showErrorForUrl() ? _react2.default.createElement(
-                'span',
-                { className: 'help-block' },
-                'The url is required'
-              ) : null
-            ),
-            _react2.default.createElement('hr', null),
-            _react2.default.createElement(
-              'div',
-              { className: this.showErrorForTitle() ? 'form-group has-error' : 'form-group' },
-              _react2.default.createElement(
-                'label',
-                { htmlFor: 'title' },
-                'Title'
-              ),
-              _react2.default.createElement('input', { id: 'title', className: 'form-control', type: 'text', placeholder: 'Title',
-                onChange: this.handleChange.bind(this, 'title'),
-                onBlur: function onBlur() {
-                  return _this3.setState(_defineProperty({}, 'userFocusedTitle', true));
-                } }),
-              this.showErrorForTitle() ? _react2.default.createElement(
-                'span',
-                { className: 'help-block' },
-                'The title is required'
-              ) : null
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'form-group' },
-              _react2.default.createElement(
-                'label',
-                { htmlFor: 'description' },
-                'Description'
-              ),
-              _react2.default.createElement('textarea', { id: 'description', className: 'form-control', cols: '30', rows: '6', placeholder: 'Description',
-                onChange: this.handleChange.bind(this, 'description') })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'form-group' },
-              _react2.default.createElement(
-                'label',
-                { htmlFor: 'tagSelect' },
-                'Select Tags'
-              ),
-              _react2.default.createElement(_reactSelect2.default, {
-                name: 'form-field-name',
-                value: this.state.value,
-                options: this.state.tags,
-                onChange: this.handleSelectChange.bind(this),
-                multi: true
-              })
-            ),
-            _react2.default.createElement(
-              'button',
-              { className: 'btn btn-success',
-                onClick: this.handleSubmit.bind(this),
-                disabled: this.state.url == '' || this.state.title == ''
-              },
-              'Save'
-            ),
-            _react2.default.createElement(
-              'button',
-              { className: 'btn btn-danger',
-                onClick: this.handleClose.bind(this)
-              },
-              'Close'
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return CreateLinkModal;
-}(_react.Component);
-
-CreateLinkModal.contextTypes = {
-  router: _react2.default.PropTypes.object.isRequired
-};
-
-function mapStateToProps(_ref) {
-  var tags = _ref.tags;
-
-  return {
-    tags: tags
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    createNewLink: function createNewLink(link) {
-      dispatch((0, _actions.optimisticLinkCreate)(link));
-      dispatch((0, _actions.createNewLink)(link));
-    }
-  };
-}
-
-function isURL(str) {
-  var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
-  '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-  '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-  '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-  return pattern.test(str);
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateLinkModal);
-
-},{"../actions/actions":271,"react":256,"react-dom":77,"react-redux":81,"react-select":124}],273:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactRedux = require('react-redux');
-
-var _actions = require('../actions/actions');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -39340,7 +39048,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(CreateTagPopover);
 
-},{"../actions/actions":271,"react":256,"react-dom":77,"react-redux":81}],274:[function(require,module,exports){
+},{"../actions/actions":271,"react":256,"react-dom":77,"react-redux":81}],273:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39399,6 +39107,22 @@ var LinkForm = function (_Component) {
           _this2.props.handleClose();
         }
       };
+
+      overlay.className += " link-modal-overlay-show";
+      modal.className += " link-modal-show";
+
+      // $('#link-modal').animate({
+      //   opacity: 1,
+      //   left: "+=500"
+      // }, 2000 , function() {
+      //   console.log('Animation complete');
+      // });
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      // const modal = document.getElementById('link-modal');
+      // modal.className += "";
     }
   }, {
     key: 'showErrorForTitle',
@@ -39554,7 +39278,7 @@ LinkForm.propTypes = {
   handleChange: _react.PropTypes.func.isRequired
 };
 
-},{"react":256,"react-select":124}],275:[function(require,module,exports){
+},{"react":256,"react-select":124}],274:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39612,7 +39336,7 @@ exports.default = function (props) {
   );
 };
 
-},{"react":256,"react-router":115}],276:[function(require,module,exports){
+},{"react":256,"react-router":115}],275:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39691,7 +39415,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TagItem);
 
-},{"../actions/actions":271,"react":256,"react-redux":81}],277:[function(require,module,exports){
+},{"../actions/actions":271,"react":256,"react-redux":81}],276:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39741,7 +39465,7 @@ var TestComponent = function (_Component) {
 
 exports.default = TestComponent;
 
-},{"react":256,"react-select":124}],278:[function(require,module,exports){
+},{"react":256,"react-select":124}],277:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39859,12 +39583,21 @@ var CreateLink = function (_Component) {
 
       this.props.createLink(this.state.draftLink, tagIds);
 
-      this.context.router.push('/home');
+      this.handleClose();
     }
   }, {
     key: 'handleClose',
     value: function handleClose() {
-      this.context.router.push('/home');
+      var overlay = document.getElementById('link-modal-overlay');
+      var modal = document.getElementById('link-modal');
+      overlay.className = "";
+      modal.className = "";
+
+      var router = this.context.router;
+      setTimeout(function () {
+        router.push('/home');
+      }, 300);
+      // this.context.router.push('/home');
     }
   }, {
     key: 'render',
@@ -39909,7 +39642,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateLink);
 
-},{"../actions/actions":271,"../components/LinkForm":274,"react":256,"react-addons-update":76,"react-redux":81}],279:[function(require,module,exports){
+},{"../actions/actions":271,"../components/LinkForm":273,"react":256,"react-addons-update":76,"react-redux":81}],278:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39986,18 +39719,32 @@ var DeleteLink = function (_Component) {
           _this3.handleClose();
         }
       };
+
+      setTimeout(function () {
+        overlay.className += " link-modal-overlay-show";
+        modal.className += " link-modal-show";
+      }, 1);
     }
   }, {
     key: 'handleSubmit',
     value: function handleSubmit() {
       this.props.deleteLink(this.props.params.linkId);
 
-      this.context.router.push('/home');
+      this.handleClose();
     }
   }, {
     key: 'handleClose',
     value: function handleClose() {
-      this.context.router.push('/home');
+      var overlay = document.getElementById('link-modal-overlay');
+      var modal = document.getElementById('link-modal');
+      overlay.className = "";
+      modal.className = "";
+
+      var router = this.context.router;
+      setTimeout(function () {
+        router.push('/home');
+      }, 300);
+      // this.context.router.push('/home');
     }
   }, {
     key: 'render',
@@ -40101,7 +39848,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DeleteLink);
 
-},{"../actions/actions":271,"../components/LinkForm":274,"react":256,"react-addons-update":76,"react-redux":81}],280:[function(require,module,exports){
+},{"../actions/actions":271,"../components/LinkForm":273,"react":256,"react-addons-update":76,"react-redux":81}],279:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40210,12 +39957,21 @@ var EditLink = function (_Component) {
 
       this.props.editLink(this.state.draftLink, tagIds);
 
-      this.context.router.push('/home');
+      this.handleClose();
     }
   }, {
     key: 'handleClose',
     value: function handleClose() {
-      this.context.router.push('/home');
+      var overlay = document.getElementById('link-modal-overlay');
+      var modal = document.getElementById('link-modal');
+      overlay.className = "";
+      modal.className = "";
+
+      var router = this.context.router;
+      setTimeout(function () {
+        router.push('/home');
+      }, 300);
+      // this.context.router.push('/home');
     }
   }, {
     key: 'render',
@@ -40260,7 +40016,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EditLink);
 
-},{"../actions/actions":271,"../components/LinkForm":274,"react":256,"react-addons-update":76,"react-redux":81}],281:[function(require,module,exports){
+},{"../actions/actions":271,"../components/LinkForm":273,"react":256,"react-addons-update":76,"react-redux":81}],280:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40439,7 +40195,7 @@ function mapStateToProps(_ref) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(LinkList);
 
-},{"../components/LinkItem":275,"react":256,"react-redux":81}],282:[function(require,module,exports){
+},{"../components/LinkItem":274,"react":256,"react-redux":81}],281:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40540,7 +40296,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchBar);
 
-},{"../actions/actions":271,"react":256,"react-redux":81}],283:[function(require,module,exports){
+},{"../actions/actions":271,"react":256,"react-redux":81}],282:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40702,7 +40458,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TagList);
 
-},{"../actions/actions":271,"../components/CreateTagPopover":273,"../components/TagItem":276,"react":256,"react-redux":81,"redux":263}],284:[function(require,module,exports){
+},{"../actions/actions":271,"../components/CreateTagPopover":272,"../components/TagItem":275,"react":256,"react-redux":81,"redux":263}],283:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40726,10 +40482,6 @@ var _TagList2 = _interopRequireDefault(_TagList);
 var _LinkList = require('../containers/LinkList');
 
 var _LinkList2 = _interopRequireDefault(_LinkList);
-
-var _CreateLinkModal = require('../components/CreateLinkModal');
-
-var _CreateLinkModal2 = _interopRequireDefault(_CreateLinkModal);
 
 var _reactRedux = require('react-redux');
 
@@ -40759,9 +40511,9 @@ var App = function (_Component) {
   }
 
   _createClass(App, [{
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      console.log('App component updated!');
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate() {
+      this.props.toggleTagPopover(false);
     }
   }, {
     key: 'componentWillMount',
@@ -40826,13 +40578,16 @@ function mapDispatchToProps(dispatch) {
     },
     fetchLinks: function fetchLinks() {
       dispatch((0, _actions.fetchLinks)());
+    },
+    toggleTagPopover: function toggleTagPopover(isActive) {
+      dispatch((0, _actions.toggleTagPopover)(isActive));
     }
   };
 }
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(App);
 
-},{"../actions/actions":271,"../components/CreateLinkModal":272,"../containers/LinkList":281,"../containers/SearchBar":282,"../containers/TagList":283,"react":256,"react-redux":81,"react-router":115,"toastr":269}],285:[function(require,module,exports){
+},{"../actions/actions":271,"../containers/LinkList":280,"../containers/SearchBar":281,"../containers/TagList":282,"react":256,"react-redux":81,"react-router":115,"toastr":269}],284:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -40864,10 +40619,6 @@ var _TestComponent2 = _interopRequireDefault(_TestComponent);
 var _reducers = require('./reducers');
 
 var _reducers2 = _interopRequireDefault(_reducers);
-
-var _CreateLinkModal = require('./components/CreateLinkModal');
-
-var _CreateLinkModal2 = _interopRequireDefault(_CreateLinkModal);
 
 var _EditLink = require('./containers/EditLink');
 
@@ -40901,7 +40652,7 @@ _reactDom2.default.render(_react2.default.createElement(
   )
 ), document.getElementById('root'));
 
-},{"./components/CreateLinkModal":272,"./components/TestComponent":277,"./containers/CreateLink":278,"./containers/DeleteLink":279,"./containers/EditLink":280,"./containers/app":284,"./reducers":286,"react":256,"react-dom":77,"react-redux":81,"react-router":115,"redux":263,"redux-promise":257}],286:[function(require,module,exports){
+},{"./components/TestComponent":276,"./containers/CreateLink":277,"./containers/DeleteLink":278,"./containers/EditLink":279,"./containers/app":283,"./reducers":285,"react":256,"react-dom":77,"react-redux":81,"react-router":115,"redux":263,"redux-promise":257}],285:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40942,7 +40693,7 @@ var rootReducer = (0, _redux.combineReducers)({
 
 exports.default = rootReducer;
 
-},{"./links":287,"./searchFilter":288,"./tagFilters":289,"./tagPopover":290,"./tags":291,"redux":263}],287:[function(require,module,exports){
+},{"./links":286,"./searchFilter":287,"./tagFilters":288,"./tagPopover":289,"./tags":290,"redux":263}],286:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41020,7 +40771,7 @@ exports.default = function () {
   return state;
 };
 
-},{"toastr":269}],288:[function(require,module,exports){
+},{"toastr":269}],287:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41039,7 +40790,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],289:[function(require,module,exports){
+},{}],288:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41076,7 +40827,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],290:[function(require,module,exports){
+},{}],289:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41095,7 +40846,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],291:[function(require,module,exports){
+},{}],290:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41137,6 +40888,6 @@ exports.default = function () {
   return state;
 };
 
-},{}]},{},[285]);
+},{}]},{},[284]);
 
 //# sourceMappingURL=bundle.js.map

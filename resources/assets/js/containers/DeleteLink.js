@@ -33,16 +33,31 @@ class DeleteLink extends Component {
         this.handleClose();
       }
     }
+
+    setTimeout(function(){
+      overlay.className += " link-modal-overlay-show";
+      modal.className += " link-modal-show";
+    },1);
+
   }
 
   handleSubmit() {
     this.props.deleteLink(this.props.params.linkId);
 
-    this.context.router.push('/home');
+    this.handleClose();
   }
 
   handleClose() {
-    this.context.router.push('/home');
+    const overlay = document.getElementById('link-modal-overlay');
+    const modal = document.getElementById('link-modal');
+    overlay.className = "";
+    modal.className = "";
+
+    let router = this.context.router;
+    setTimeout(function(){
+      router.push('/home');
+    },300);
+    // this.context.router.push('/home');
   }
 
   render() {

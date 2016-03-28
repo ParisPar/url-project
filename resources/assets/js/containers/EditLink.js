@@ -64,11 +64,20 @@ class EditLink extends Component {
 
     this.props.editLink(this.state.draftLink, tagIds);
 
-    this.context.router.push('/home');
+    this.handleClose();
   }
 
   handleClose() {
-    this.context.router.push('/home');
+    const overlay = document.getElementById('link-modal-overlay');
+    const modal = document.getElementById('link-modal');
+    overlay.className = "";
+    modal.className = "";
+
+    let router = this.context.router;
+    setTimeout(function(){
+      router.push('/home');
+    },300);
+    // this.context.router.push('/home');
   }
 
   render() {

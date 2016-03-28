@@ -5811,7 +5811,8 @@ body {
     margin-left: 15px;
     margin-top: 8px;
     z-index: 1;
-    color: #4f5b66; }
+    color: #4f5b66;
+    display: block; }
 
 #export-button {
   background-color: #d5310c;
@@ -5842,18 +5843,13 @@ body {
   /* Enable scroll if needed */
   background-color: black;
   /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */ }
-  #link-modal-overlay.example-enter {
-    opacity: 0.01; }
-  #link-modal-overlay.example-enter.example-enter-active {
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Black w/ opacity */
+  opacity: 0;
+  transition: all 200ms ease; }
+  #link-modal-overlay.link-modal-overlay-show {
     opacity: 1;
-    transition: opacity 100ms linear; }
-  #link-modal-overlay.example-leave {
-    opacity: 1; }
-  #link-modal-overlay.example-leave.example-leave-active {
-    opacity: 0.01;
-    transition: opacity 100ms linear; }
+    transition: all 200ms ease; }
   #link-modal-overlay #link-modal {
     background-color: #fefefe;
     margin: 0 auto;
@@ -5864,7 +5860,16 @@ body {
     width: 60%;
     /* Could be more or less, depending on screen size */
     padding-bottom: 40px;
-    max-width: 700px; }
+    max-width: 700px;
+    opacity: 0;
+    -webkit-transform: translate(0, -20%);
+    transform: translate(0, -20%);
+    transition: all 200ms ease-out; }
+    #link-modal-overlay #link-modal.link-modal-show {
+      opacity: 1;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      transition: all 200ms ease-out; }
     #link-modal-overlay #link-modal h3 {
       border-bottom: 1px solid #ddd;
       background: #f5f5f5;
@@ -5970,6 +5975,7 @@ body {
     padding: 0 0; }
     .app-main ul.links-list li {
       padding: 10px;
+      padding-bottom: 12px;
       margin: 5px 0;
       background: #fff;
       list-style: none;
@@ -5985,6 +5991,11 @@ body {
           display: none; }
       .app-main ul.links-list li:hover h3 i {
         display: block; }
+      .app-main ul.links-list li p {
+        margin-bottom: 4px; }
+      .app-main ul.links-list li .label {
+        margin-right: 3px;
+        font-size: 11px; }
   .app-main ul.pagination-list {
     padding: 0 0; }
     .app-main ul.pagination-list li {

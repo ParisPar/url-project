@@ -21,6 +21,21 @@ export default class LinkForm extends Component {
         this.props.handleClose();
       }
     }
+
+    overlay.className += " link-modal-overlay-show";
+    modal.className += " link-modal-show";
+
+    // $('#link-modal').animate({
+    //   opacity: 1,
+    //   left: "+=500"
+    // }, 2000 , function() {
+    //   console.log('Animation complete');
+    // });
+  }
+
+  componentWillUnmount() {
+    // const modal = document.getElementById('link-modal');
+    // modal.className += "";
   }
 
   showErrorForTitle() {
@@ -36,7 +51,6 @@ export default class LinkForm extends Component {
     }
     return this.props.draftLink.url == '';
   }
-
 
   render() {
     return (
