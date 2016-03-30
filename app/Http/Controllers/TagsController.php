@@ -103,6 +103,7 @@ class TagsController extends Controller
         $tag->delete();
 
         return response()->json([
+            'data' => $tag,
             'message' => 'Tag Deleted'
         ], 200);
     }

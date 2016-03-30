@@ -3,17 +3,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import TagItem from '../components/TagItem';
-import { fetchTags, clearTagFilters, toggleTagPopover } from '../actions/actions';
-import CreateTagPopover from '../components/CreateTagPopover';
+import { fetchTags, clearTagFilters } from '../actions/actions';
+import CreateTag from '../containers/CreateTag';
 
 class TagList extends Component {
+
+  componentWillMount() {
+    this.setState({
+      createTagIsActive: false
+    })
+  }
 
   componentDidMount() {
     console.log('Tag List component mounted!');
   }
 
   componentWillReceiveProps() {
-    console.log('Tag List component receiving new props!');
+    // console.log('Tag List component receiving new props!');
   }
 
   componentWillUpdate() {
@@ -25,7 +31,7 @@ class TagList extends Component {
   }
 
   componentWillUnmount() {
-    console.log('Tag List component will unmount!');
+    // console.log('Tag List component will unmount!');
   }
 
   renderTags() {
@@ -43,8 +49,18 @@ class TagList extends Component {
     )
   }
 
-  tooglePopover() {
-    this.props.toggleTagPopover(!this.props.tagPopoverIsActive);
+  openCreateTagPopover(event) {
+    event.stopPropagation();
+    this.setState({
+      ['createTagIsActive']: true
+    })
+  }
+
+  closeCreateTagPopover(event) {
+    event.stopPropagation();
+    this.setState({
+      ['createTagIsActive']: false
+    })
   }
 
   render() {
@@ -54,16 +70,14 @@ class TagList extends Component {
           <h2>
             TAGS
             <i className="fa fa-plus"
-               onClick={this.tooglePopover.bind(this)}></i>
-            {(() => {
-              if(this.props.tagPopoverIsActive){
-                return (
-                  
-                  <CreateTagPopover />
-                  
-                );
-              }
-            })()}   
+               onClick={this.openCreateTagPopover.bind(this)}></i>
+
+            {this.state.createTagIsActive ? 
+              <CreateTag handleClose={this.closeCreateTagPopover.bind(this)} 
+                         name={this.props.name}
+                         id={this.props.id}
+            /> : null}
+
           </h2>
 
           <hr />
@@ -84,8 +98,7 @@ class TagList extends Component {
 
 function mapStateToProps({tags, tagPopoverIsActive}) {
   return {
-    tags,
-    tagPopoverIsActive,
+    tags
   }
 }
 
@@ -96,9 +109,6 @@ function mapDispatchToProps(dispatch) {
     },
     clearTagFilters: () => {
       dispatch(clearTagFilters());
-    },
-    toggleTagPopover: (isActive) => {
-      dispatch(toggleTagPopover(isActive));
     }
   };
 }
