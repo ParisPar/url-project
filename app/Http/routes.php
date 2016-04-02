@@ -46,5 +46,6 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
+    // Route::get('home/{path?}', 'HomeController@index')->where('path', '/home/*');
     Route::get('{path?}', 'HomeController@index')->where('path', '.*');
 });

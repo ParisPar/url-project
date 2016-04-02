@@ -5757,6 +5757,9 @@ button.close {
     color: #286090;
     font-size: 2em;
     font-weight: 300; }
+    .navbar-default .navbar-brand .beta-text {
+      font-size: 16px;
+      margin-left: 7px; }
     .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
       color: #286090; }
   .navbar-default .navbar-nav > li > a {
@@ -5777,62 +5780,102 @@ button.close {
         transition: all 200ms ease-out; }
 
 body {
-  background: linear-gradient(to bottom, #89c3eb 0%, #fff 100%);
-  background-repeat: no-repeat;
-  min-height: 535px; }
+  font-family: Lato;
+  min-width: 850px; }
+  body header {
+    background: linear-gradient(to bottom, #89c3eb 0%, #fff 100%);
+    background-repeat: no-repeat; }
 
-.panel {
-  border: none;
-  border-radius: 0;
-  max-width: 400px;
-  margin: 0 auto;
-  box-shadow: 1px 1px 4px #888; }
-  .panel .panel-body h1 {
-    font-size: 38px;
+.jumbotron {
+  background: transparent; }
+  .jumbotron h1 {
+    font-size: 54px;
     font-weight: 300;
-    color: #286090;
-    text-align: center;
-    margin-bottom: 40px; }
-  .panel .panel-body .btn.btn-primary {
+    color: #286090; }
+  .jumbotron p {
+    font-weight: 300; }
+  .jumbotron .btn.btn-primary {
+    background: #ff7a49;
     border: none;
     border-radius: 3px;
-    background: #15CD72; }
-    .panel .panel-body .btn.btn-primary:hover {
-      background: #0CB863; }
-  .panel .form-group {
-    margin: 15px 20px;
-    font-size: 18px; }
-    .panel .form-group input.form-control {
-      padding: 14px;
-      font-size: 18px;
-      height: auto; }
-    .panel .form-group input[type="checkbox"] {
-      margin-top: 6px;
-      margin-left: -18px;
-      -ms-transform: scale(1.4);
-      /* IE */
-      -moz-transform: scale(1.4);
-      /* FF */
-      -webkit-transform: scale(1.4);
-      /* Safari and Chrome */
-      -o-transform: scale(1.4);
-      /* Opera */ }
-    .panel .form-group label {
-      font-size: 16px; }
-    .panel .form-group button {
-      font-size: 22px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      width: 100%; }
-    .panel .form-group p {
-      margin-top: 10px;
-      text-align: center; }
-    .panel .form-group .checkbox {
-      padding-top: 0; }
-    .panel .form-group.has-error {
-      margin-bottom: 0;
-      margin-top: 0; }
-      .panel .form-group.has-error .help-block {
-        font-size: 14px; }
+    padding: 15px;
+    transition: all 200ms ease-out; }
+    .jumbotron .btn.btn-primary:hover {
+      background: #DF6632;
+      transition: all 200ms ease-out; }
 
-/*# sourceMappingURL=auth.css.map */
+.browser-mockup {
+  border-top: 2em solid rgba(230, 230, 230, 0.7);
+  box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-radius: 3px 3px 0 0;
+  width: 100%; }
+  .browser-mockup:before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.25em;
+    left: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background-color: #f44;
+    box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5; }
+  .browser-mockup > * {
+    display: block; }
+  .browser-mockup img {
+    width: inherit; }
+
+main hr {
+  border-color: #333; }
+
+.features {
+  min-height: 700px; }
+  .features > h1 {
+    color: #444;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 300;
+    margin-bottom: 30px; }
+  .features .nav.nav-tabs {
+    text-align: center;
+    border: none;
+    margin-bottom: 50px; }
+    .features .nav.nav-tabs > li {
+      float: none;
+      display: inline-block; }
+      .features .nav.nav-tabs > li a {
+        border: none;
+        color: #444;
+        font-size: 20px;
+        margin: 20px; }
+        .features .nav.nav-tabs > li a:hover {
+          background-color: transparent; }
+    .features .nav.nav-tabs > li.active a {
+      color: #009cfc;
+      border-bottom: 3px solid #009cfc; }
+  .features .tab-pane h1 {
+    color: #444;
+    font-size: 50px;
+    font-weight: 300;
+    margin-bottom: 40px; }
+  .features .tab-pane p {
+    font-size: 20px;
+    font-weight: 300; }
+  .features .tab-pane .feature-image {
+    width: 100%;
+    display: block;
+    margin: 16px auto;
+    max-width: 441px;
+    box-shadow: 1px 1px 7px; }
+
+footer {
+  background-color: #0b1e35;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 50px; }
+  footer p {
+    font-weight: 300;
+    color: white; }
+
+/*# sourceMappingURL=app.css.map */

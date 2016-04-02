@@ -34,6 +34,7 @@
           <!-- Branding Image -->
           <a class="navbar-brand" href="{{ url('/') }}">
             Url Project
+            <span class="beta-text">beta</span>
           </a>
         </div>
 
@@ -65,17 +66,15 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-5">
-            <h1>Save Your Links Online!</h1>
+            <h1>Save & Organize Your Links Online!</h1>
             <p>
-              Tired of having your bookmarks bar full of links you rarely use?
+              No more overfilling your bookmarks toolbar!
             </p>
             <p><a class="btn btn-primary btn-lg" href="{{ url('/register') }}" role="button">Sign Up for free</a></p>
           </div>
           <div class="col-xs-7">
             <div class="browser-mockup">
-              <!-- <img src="images/screenshot.png" /> -->
-              <!-- <img src="images/ss1000x600.png" /> -->
-              <img src="images/out3.gif" />
+              <img src="/images/preview.gif" />
             </div>
           </div>
         </div>
@@ -117,7 +116,7 @@
                   </p>
                 </div>
                 <div class="col-xs-6">
-                  <img class="feature-image" src="images/createlink.jpg" alt="">
+                  <img class="feature-image" src="/images/createlink.jpg" alt="">
                 </div>
               </div>
             </div>
@@ -132,7 +131,7 @@
                   </p>
                 </div>
                 <div class="col-xs-6">
-                  <img class="feature-image" src="images/tags.jpg" alt="">
+                  <img class="feature-image" src="/images/tags.jpg" alt="">
                 </div>
               </div>
             </div>
@@ -148,7 +147,7 @@
                   </p>
                 </div>
                 <div class="col-xs-6">
-                  <img class="feature-image" src="images/search.jpg" alt="">
+                  <img class="feature-image" src="/images/search.jpg" alt="">
                 </div>
               </div>
             </div>
@@ -163,7 +162,7 @@
                   </p>
                 </div>
                 <div class="col-xs-6">
-                  <img class="feature-image" src="images/pdf2.jpg" alt="">
+                  <img class="feature-image" src="/images/pdf2.jpg" alt="">
                 </div>
               </div>
             </div>
@@ -178,8 +177,11 @@
 
   <footer>
     <div class="container">
-      <p>© Url-Project. All rights reserved</p>
-      <p>Proudly hosted with DigitalOcean.</p>
+      <p>
+      © Url-Project<br>
+      Created By <a href="http://www.paraskevas.info">Paris Paraskevas</a>
+      </p>
+      
     </div>
   </footer>
 

@@ -45,6 +45,7 @@
         <!-- Branding Image -->
         <a class="navbar-brand" href="{{ url('/') }}">
           Url Project
+          <span class="beta-text">beta</span>
         </a>
       </div>
 
@@ -81,8 +82,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> -->
   
-  <script src="js/libs.js"></script>
-  <script src="js/scripts.js"></script>
+  <script src="/js/libs.js"></script>
+  <script src="/js/scripts.js"></script>
   <script type="text/javascript" src="{{ elixir('js/bundle.js') }}"></script>
 </body>
 </html>

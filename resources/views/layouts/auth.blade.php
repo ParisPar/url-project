@@ -41,6 +41,7 @@
         <!-- Branding Image -->
         <a class="navbar-brand" href="{{ url('/') }}">
           Url Project
+          <span class="beta-text">beta</span>
         </a>
       </div>
 
