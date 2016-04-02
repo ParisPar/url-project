@@ -10,7 +10,7 @@ import { Link } from 'react-router';
 class App extends Component {
 
   componentWillMount() {
-    console.log('App component will mount!');
+    // console.log('App component will mount!');
     this.props.fetchTags();
     this.props.fetchLinks();
   }
@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-sm-3">
+          <div className="col-xs-3">
             <Link to="/home/new" id="new-button" className="btn btn-primary">
               <i className="fa fa-plus"></i>
               New Link
@@ -28,7 +28,7 @@ class App extends Component {
             {this.props.children}
           </div>
           <SearchBar />
-          <div className="col-sm-2">
+          <div className="col-xs-2">
           <a id="export-button"
              className="btn btn-primary"
              href="/links/export"

@@ -25,7 +25,7 @@ export default class DeleteTag extends Component {
                   handleSubmit={this.handleSubmit.bind(this)}>
         <h4>Delete Tag?</h4>
 
-        <p><strong>Name: </strong>{this.props.name}</p>
+        <p><strong>Name: </strong><br/>{this.props.name}</p>
 
         <hr/>
         <button className="btn btn-default"

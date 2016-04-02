@@ -44,7 +44,7 @@ class CreateTag extends Component {
                   handleClose={this.props.handleClose}
                   handleSubmit={this.handleSubmit.bind(this)}>
 
-        <h4>Edit Tag</h4>
+        <h4>Create Tag</h4>
 
         <div className={
           this.showErrorForTagName() ? 'form-group has-error' : 'form-group'

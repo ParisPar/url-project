@@ -54,7 +54,7 @@ export function clearTagFilters() {
  */
 
 export function createTag(tag) {
-  console.log('Dispatching createTag', tag);
+  // console.log('Dispatching createTag', tag);
   const request = axios({
     method: 'post',
     url: '/tags',
@@ -70,7 +70,7 @@ export function createTag(tag) {
 }
 
 export function editTag(tag) {
-  console.log('Dispatching editTag', tag);
+  // console.log('Dispatching editTag', tag);
   const request = axios({
     method: 'patch',
     url: '/tags/'+ tag.id,
@@ -86,7 +86,7 @@ export function editTag(tag) {
 }
 
 export function deleteTag(tag) {
-  console.log('Dispatching deleteTag', tag);
+  // console.log('Dispatching deleteTag', tag);
   const request = axios({
     method: 'delete',
     url: '/tags/'+ tag.id,

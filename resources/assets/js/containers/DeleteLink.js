@@ -57,7 +57,6 @@ class DeleteLink extends Component {
     setTimeout(function(){
       router.push('/home');
     },300);
-    // this.context.router.push('/home');
   }
 
   render() {

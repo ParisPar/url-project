@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-// The only use case for bindActionCreators is when you
-// want to pass some action creators down to a component
-// that isn’t aware of Redux, and you don’t want to pass
-// dispatch or the Redux store to it.
 import { connect } from 'react-redux';
 import { addTagFilter, removeTagFilter } from '../actions/actions';
 import EditTag from '../containers/EditTag';
@@ -75,15 +71,21 @@ class TagItem extends Component {
               this.props.removeTagFilter(this.props.id);
             }
           }}>
-        <a href="#">
 
-          <i className="fa fa-tag"></i>{this.props.name}
+          <span className="tag-icons">
+            <i className="fa fa-pencil"
+               onClick={this.openEditTagPopover.bind(this)}></i>
+
+            <i className="fa fa-trash-o"
+               onClick={this.openDeleteTagPopover.bind(this)}></i>
+          </span>
           
-          <i className="fa fa-pencil"
-             onClick={this.openEditTagPopover.bind(this)}></i>
-
-          <i className="fa fa-trash-o"
-             onClick={this.openDeleteTagPopover.bind(this)}></i>
+          <span className="tag-name">
+            <i className="fa fa-tag"></i>
+            {this.props.name}
+          </span>
+          
+          
 
           {this.state.editTagIsActive ? 
             <EditTag handleClose={this.closeEditTagPopover.bind(this)} 
@@ -97,7 +99,7 @@ class TagItem extends Component {
                        id={this.props.id}
           /> : null}
 
-        </a>
+        
       </li>
     )
   }

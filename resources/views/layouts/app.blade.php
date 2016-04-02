@@ -31,7 +31,7 @@
 </head>
 <body id="app-layout">
   <nav class="navbar navbar-default">
-    <div class="container">
+    <div class="container-fluid">
       <div class="navbar-header">
 
         <!-- Collapsed Hamburger -->
@@ -55,7 +55,7 @@
           <!-- Authentication Links -->
           @if (Auth::guest())
           <li><a href="{{ url('/login') }}">Login</a></li>
-          <li><a href="{{ url('/register') }}">Register</a></li>
+          <li><a href="{{ url('/register') }}" id="signup">Sign Up</a></li>
           @else
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -63,7 +63,7 @@
             </a>
 
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#"><i class="fa fa-btn fa-cog"></i>Settings</a></li>
+              <!-- <li><a href="#"><i class="fa fa-btn fa-cog"></i>Settings</a></li> -->
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>
@@ -82,6 +82,7 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> -->
   
   <script src="js/libs.js"></script>
+  <script src="js/scripts.js"></script>
   <script type="text/javascript" src="{{ elixir('js/bundle.js') }}"></script>
 </body>
 </html>

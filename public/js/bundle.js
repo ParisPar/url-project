@@ -38794,7 +38794,7 @@ function clearTagFilters() {
  */
 
 function createTag(tag) {
-  console.log('Dispatching createTag', tag);
+  // console.log('Dispatching createTag', tag);
   var request = (0, _axios2.default)({
     method: 'post',
     url: '/tags',
@@ -38810,7 +38810,7 @@ function createTag(tag) {
 }
 
 function editTag(tag) {
-  console.log('Dispatching editTag', tag);
+  // console.log('Dispatching editTag', tag);
   var request = (0, _axios2.default)({
     method: 'patch',
     url: '/tags/' + tag.id,
@@ -38826,7 +38826,7 @@ function editTag(tag) {
 }
 
 function deleteTag(tag) {
-  console.log('Dispatching deleteTag', tag);
+  // console.log('Dispatching deleteTag', tag);
   var request = (0, _axios2.default)({
     method: 'delete',
     url: '/tags/' + tag.id,
@@ -38971,19 +38971,6 @@ var LinkForm = function (_Component) {
 
       overlay.className += " link-modal-overlay-show";
       modal.className += " link-modal-show";
-
-      // $('#link-modal').animate({
-      //   opacity: 1,
-      //   left: "+=500"
-      // }, 2000 , function() {
-      //   console.log('Animation complete');
-      // });
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      // const modal = document.getElementById('link-modal');
-      // modal.className += "";
     }
   }, {
     key: 'showErrorForTitle',
@@ -39163,7 +39150,7 @@ exports.default = function (props) {
       null,
       _react2.default.createElement(
         'a',
-        { href: props.url },
+        { href: props.url, 'data-toggle': 'tooltip', 'data-placement': 'top', title: props.url },
         props.title
       ),
       _react2.default.createElement(
@@ -39231,11 +39218,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// The only use case for bindActionCreators is when you
-// want to pass some action creators down to a component
-// that isn’t aware of Redux, and you don’t want to pass
-// dispatch or the Redux store to it.
-
 
 var TagItem = function (_Component) {
   _inherits(TagItem, _Component);
@@ -39313,23 +39295,27 @@ var TagItem = function (_Component) {
             }
           } },
         _react2.default.createElement(
-          'a',
-          { href: '#' },
-          _react2.default.createElement('i', { className: 'fa fa-tag' }),
-          this.props.name,
+          'span',
+          { className: 'tag-icons' },
           _react2.default.createElement('i', { className: 'fa fa-pencil',
             onClick: this.openEditTagPopover.bind(this) }),
           _react2.default.createElement('i', { className: 'fa fa-trash-o',
-            onClick: this.openDeleteTagPopover.bind(this) }),
-          this.state.editTagIsActive ? _react2.default.createElement(_EditTag2.default, { handleClose: this.closeEditTagPopover.bind(this),
-            name: this.props.name,
-            id: this.props.id
-          }) : null,
-          this.state.deleteTagIsActive ? _react2.default.createElement(_DeleteTag2.default, { handleClose: this.closeDeleteTagPopover.bind(this),
-            name: this.props.name,
-            id: this.props.id
-          }) : null
-        )
+            onClick: this.openDeleteTagPopover.bind(this) })
+        ),
+        _react2.default.createElement(
+          'span',
+          { className: 'tag-name' },
+          _react2.default.createElement('i', { className: 'fa fa-tag' }),
+          this.props.name
+        ),
+        this.state.editTagIsActive ? _react2.default.createElement(_EditTag2.default, { handleClose: this.closeEditTagPopover.bind(this),
+          name: this.props.name,
+          id: this.props.id
+        }) : null,
+        this.state.deleteTagIsActive ? _react2.default.createElement(_DeleteTag2.default, { handleClose: this.closeDeleteTagPopover.bind(this),
+          name: this.props.name,
+          id: this.props.id
+        }) : null
       );
     }
   }]);
@@ -39358,7 +39344,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TagItem);
 
-},{"../actions/actions":271,"../containers/DeleteTag":280,"../containers/EditTag":282,"react":256,"react-redux":81}],275:[function(require,module,exports){
+},{"../actions/actions":271,"../containers/DeleteTag":279,"../containers/EditTag":281,"react":256,"react-redux":81}],275:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39445,56 +39431,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactSelect = require('react-select');
-
-var _reactSelect2 = _interopRequireDefault(_reactSelect);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TestComponent = function (_Component) {
-  _inherits(TestComponent, _Component);
-
-  function TestComponent() {
-    _classCallCheck(this, TestComponent);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(TestComponent).apply(this, arguments));
-  }
-
-  _createClass(TestComponent, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'section' },
-        'Hello Router!'
-      );
-    }
-  }]);
-
-  return TestComponent;
-}(_react.Component);
-
-exports.default = TestComponent;
-
-},{"react":256,"react-select":124}],277:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _reactRedux = require('react-redux');
 
 var _LinkForm = require('../components/LinkForm');
@@ -39549,7 +39485,7 @@ var CreateLink = function (_Component) {
       });
 
       this.setState(_defineProperty({}, 'allTags', allTags));
-      console.log('CreateLink componentWillMount', this.state);
+      // console.log('CreateLink componentWillMount', this.state);
     }
 
     // Needed for when tags aren't yet fetched from the database
@@ -39557,23 +39493,15 @@ var CreateLink = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
+      // All user tags in react-select acceptable format
+      var allTags = this.props.tags.map(function (tag) {
+        return {
+          value: tag.id,
+          label: tag.name
+        };
+      });
 
-      // // All user tags in react-select acceptable format
-      // let allTags = this.props.tags.map((tag) => {
-      //   return {
-      //     value: tag.id,
-      //     label: tag.name
-      //   }
-      // });
-
-      // this.setState({
-      //   ['allTags']: allTags
-      // });
-    }
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate() {
-      console.log('CreateLink componentWillUpdate');
+      this.setState(_defineProperty({}, 'allTags', allTags));
     }
   }, {
     key: 'handleChange',
@@ -39596,7 +39524,7 @@ var CreateLink = function (_Component) {
         return tag.value;
       });
 
-      console.log('Sending create request', this.state.draftLink, tagIds);
+      // console.log('Sending create request', this.state.draftLink, tagIds);
 
       this.props.createLink(this.state.draftLink, tagIds);
 
@@ -39659,7 +39587,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateLink);
 
-},{"../actions/actions":271,"../components/LinkForm":272,"react":256,"react-addons-update":76,"react-redux":81}],278:[function(require,module,exports){
+},{"../actions/actions":271,"../components/LinkForm":272,"react":256,"react-addons-update":76,"react-redux":81}],277:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39752,7 +39680,7 @@ var CreateTag = function (_Component) {
         _react2.default.createElement(
           'h4',
           null,
-          'Edit Tag'
+          'Create Tag'
         ),
         _react2.default.createElement(
           'div',
@@ -39795,7 +39723,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(CreateTag);
 
-},{"../actions/actions":271,"../components/TagPopover":275,"react":256,"react-dom":77,"react-redux":81}],279:[function(require,module,exports){
+},{"../actions/actions":271,"../components/TagPopover":275,"react":256,"react-dom":77,"react-redux":81}],278:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39897,7 +39825,6 @@ var DeleteLink = function (_Component) {
       setTimeout(function () {
         router.push('/home');
       }, 300);
-      // this.context.router.push('/home');
     }
   }, {
     key: 'render',
@@ -40001,7 +39928,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DeleteLink);
 
-},{"../actions/actions":271,"../components/LinkForm":272,"react":256,"react-addons-update":76,"react-redux":81}],280:[function(require,module,exports){
+},{"../actions/actions":271,"../components/LinkForm":272,"react":256,"react-addons-update":76,"react-redux":81}],279:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40077,6 +40004,7 @@ var DeleteTag = function (_Component) {
             null,
             'Name: '
           ),
+          _react2.default.createElement('br', null),
           this.props.name
         ),
         _react2.default.createElement('hr', null),
@@ -40113,7 +40041,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(DeleteTag);
 
-},{"../actions/actions":271,"../components/TagPopover":275,"react":256,"react-dom":77,"react-redux":81}],281:[function(require,module,exports){
+},{"../actions/actions":271,"../components/TagPopover":275,"react":256,"react-dom":77,"react-redux":81}],280:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40218,7 +40146,7 @@ var EditLink = function (_Component) {
         return tag.value;
       });
 
-      console.log('Sending edit request', this.state.draftLink, tagIds);
+      // console.log('Sending edit request', this.state.draftLink, tagIds);
 
       this.props.editLink(this.state.draftLink, tagIds);
 
@@ -40236,7 +40164,6 @@ var EditLink = function (_Component) {
       setTimeout(function () {
         router.push('/home');
       }, 300);
-      // this.context.router.push('/home');
     }
   }, {
     key: 'render',
@@ -40281,7 +40208,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EditLink);
 
-},{"../actions/actions":271,"../components/LinkForm":272,"react":256,"react-addons-update":76,"react-redux":81}],282:[function(require,module,exports){
+},{"../actions/actions":271,"../components/LinkForm":272,"react":256,"react-addons-update":76,"react-redux":81}],281:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40419,7 +40346,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(EditTag);
 
-},{"../actions/actions":271,"../components/TagPopover":275,"react":256,"react-dom":77,"react-redux":81}],283:[function(require,module,exports){
+},{"../actions/actions":271,"../components/TagPopover":275,"react":256,"react-dom":77,"react-redux":81}],282:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40456,31 +40383,6 @@ var LinkList = function (_Component) {
   }
 
   _createClass(LinkList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      console.log('Link List component mounted!');
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps() {
-      console.log('Link List component receiving new props!');
-    }
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate() {
-      console.log('Link List component will update!');
-    }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate(newProps) {
-      console.log('Link List component updated!');
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      console.log('Link List component will unmount!');
-    }
-  }, {
     key: 'renderLinks',
     value: function renderLinks(links) {
       return links.map(function (link) {
@@ -40539,7 +40441,7 @@ var LinkList = function (_Component) {
       // Filter links by the search term
       var lcSearchFilter = searchFilter.toLowerCase();
       var searchFilteredLinks = links.filter(function (link) {
-        return link.title.toLowerCase().includes(lcSearchFilter);
+        return link.title.toLowerCase().includes(lcSearchFilter) || link.description.toLowerCase().includes(lcSearchFilter);
       });
 
       if (tagFilters.length == 0) return searchFilteredLinks;
@@ -40566,7 +40468,7 @@ var LinkList = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'col-sm-9' },
+        { className: 'col-xs-9' },
         _react2.default.createElement(
           'div',
           { className: 'app-main' },
@@ -40574,8 +40476,7 @@ var LinkList = function (_Component) {
             'ul',
             { className: 'links-list' },
             this.renderLinks(visibleLinks)
-          ),
-          this.renderPagination()
+          )
         )
       );
     }
@@ -40598,7 +40499,7 @@ function mapStateToProps(_ref) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(LinkList);
 
-},{"../components/LinkItem":273,"react":256,"react-redux":81}],284:[function(require,module,exports){
+},{"../components/LinkItem":273,"react":256,"react-redux":81}],283:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40633,34 +40534,8 @@ var SearchBar = function (_Component) {
   }
 
   _createClass(SearchBar, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      console.log('Search Bar component mounted!');
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps() {
-      console.log('Search Bar component receiving new props!');
-    }
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate() {
-      console.log('Search Bar component will update!');
-    }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      console.log('Search Bar component updated!');
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      console.log('Search Bar component will unmount!');
-    }
-  }, {
     key: 'dispatchSearchFilterAction',
     value: function dispatchSearchFilterAction(event) {
-      console.log('Entered dispatchSearchFilterAction', event.target.value, this.props);
       this.props.setSearchFilter(event.target.value);
     }
   }, {
@@ -40668,7 +40543,7 @@ var SearchBar = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'col-sm-7' },
+        { className: 'col-xs-7' },
         _react2.default.createElement(
           'div',
           { id: 'search-box-custom' },
@@ -40699,7 +40574,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchBar);
 
-},{"../actions/actions":271,"react":256,"react-redux":81}],285:[function(require,module,exports){
+},{"../actions/actions":271,"react":256,"react-redux":81}],284:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40753,31 +40628,6 @@ var TagList = function (_Component) {
       });
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      console.log('Tag List component mounted!');
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps() {
-      // console.log('Tag List component receiving new props!');
-    }
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate() {
-      console.log('Tag List component will update!');
-    }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      console.log('Tag List component updated!');
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      // console.log('Tag List component will unmount!');
-    }
-  }, {
     key: 'renderTags',
     value: function renderTags() {
       // console.log('Running renderTags', this.props.tags);
@@ -40808,7 +40658,7 @@ var TagList = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'col-sm-3' },
+        { className: 'col-xs-3' },
         _react2.default.createElement(
           'div',
           { className: 'tag-list' },
@@ -40833,12 +40683,8 @@ var TagList = function (_Component) {
                   e.preventDefault();
                   _this2.props.clearTagFilters();
                 } },
-              _react2.default.createElement(
-                'a',
-                { href: '#' },
-                _react2.default.createElement('i', { className: 'fa fa-tags' }),
-                'All Tags'
-              )
+              _react2.default.createElement('i', { className: 'fa fa-tags' }),
+              'All Tags'
             ),
             this.renderTags()
           )
@@ -40872,7 +40718,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TagList);
 
-},{"../actions/actions":271,"../components/TagItem":274,"../containers/CreateTag":278,"react":256,"react-redux":81,"redux":263}],286:[function(require,module,exports){
+},{"../actions/actions":271,"../components/TagItem":274,"../containers/CreateTag":277,"react":256,"react-redux":81,"redux":263}],285:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40927,7 +40773,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      console.log('App component will mount!');
+      // console.log('App component will mount!');
       this.props.fetchTags();
       this.props.fetchLinks();
     }
@@ -40943,7 +40789,7 @@ var App = function (_Component) {
           { className: 'row' },
           _react2.default.createElement(
             'div',
-            { className: 'col-sm-3' },
+            { className: 'col-xs-3' },
             _react2.default.createElement(
               _reactRouter.Link,
               { to: '/home/new', id: 'new-button', className: 'btn btn-primary' },
@@ -40955,7 +40801,7 @@ var App = function (_Component) {
           _react2.default.createElement(_SearchBar2.default, null),
           _react2.default.createElement(
             'div',
-            { className: 'col-sm-2' },
+            { className: 'col-xs-2' },
             _react2.default.createElement(
               'a',
               { id: 'export-button',
@@ -40993,7 +40839,7 @@ function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(App);
 
-},{"../actions/actions":271,"../containers/LinkList":283,"../containers/SearchBar":284,"../containers/TagList":285,"react":256,"react-redux":81,"react-router":115,"toastr":269}],287:[function(require,module,exports){
+},{"../actions/actions":271,"../containers/LinkList":282,"../containers/SearchBar":283,"../containers/TagList":284,"react":256,"react-redux":81,"react-router":115,"toastr":269}],286:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -41017,10 +40863,6 @@ var _reactRouter = require('react-router');
 var _app = require('./containers/app');
 
 var _app2 = _interopRequireDefault(_app);
-
-var _TestComponent = require('./components/TestComponent');
-
-var _TestComponent2 = _interopRequireDefault(_TestComponent);
 
 var _reducers = require('./reducers');
 
@@ -41058,7 +40900,7 @@ _reactDom2.default.render(_react2.default.createElement(
   )
 ), document.getElementById('root'));
 
-},{"./components/TestComponent":276,"./containers/CreateLink":277,"./containers/DeleteLink":279,"./containers/EditLink":281,"./containers/app":286,"./reducers":288,"react":256,"react-dom":77,"react-redux":81,"react-router":115,"redux":263,"redux-promise":257}],288:[function(require,module,exports){
+},{"./containers/CreateLink":276,"./containers/DeleteLink":278,"./containers/EditLink":280,"./containers/app":285,"./reducers":287,"react":256,"react-dom":77,"react-redux":81,"react-router":115,"redux":263,"redux-promise":257}],287:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41094,7 +40936,7 @@ var rootReducer = (0, _redux.combineReducers)({
 
 exports.default = rootReducer;
 
-},{"./links":289,"./searchFilter":290,"./tagFilters":291,"./tags":292,"redux":263}],289:[function(require,module,exports){
+},{"./links":288,"./searchFilter":289,"./tagFilters":290,"./tags":291,"redux":263}],288:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41109,10 +40951,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+_toastr2.default.options.closeDuration = 300;
+_toastr2.default.options.timeOut = 3000; // How long the toast will display without user interaction
+_toastr2.default.options.extendedTimeOut = 3000; // How long the toast will display after a user hovers over it
+
 function compareLinks(link1, link2) {
-  if (link1.title < link2.title) {
+  if (link1.title.toLowerCase() < link2.title.toLowerCase()) {
     return -1;
-  } else if (link1.title > link2.title) {
+  } else if (link1.title.toLowerCase() > link2.title.toLowerCase()) {
     return 1;
   } else {
     return 0;
@@ -41136,9 +40982,6 @@ exports.default = function () {
 
     case 'EDIT_LINK':
       if (action.payload.data.message == 'Link Edited') {
-        _toastr2.default.options.closeDuration = 30000;
-        _toastr2.default.options.timeOut = 30000;
-        _toastr2.default.options.extendedTimeOut = 30000;
         _toastr2.default.success("Link was successfully edited!");
         var links = state.filter(function (link) {
           return link.id != action.payload.data.data.id;
@@ -41169,11 +41012,24 @@ exports.default = function () {
         });
         return updatedLinks;
       }
+
+    case 'DELETE_TAG':
+      if (action.payload.data.message == 'Tag Deleted') {
+        var _links3 = [].concat(_toConsumableArray(state));
+        var _updatedLinks = _links3.map(function (link) {
+          var updatedTags = link.tags.filter(function (tag) {
+            return tag.id != action.payload.data.data.id;
+          });
+          link.tags = updatedTags;
+          return link;
+        });
+        return _updatedLinks;
+      }
   }
   return state;
 };
 
-},{"toastr":269}],290:[function(require,module,exports){
+},{"toastr":269}],289:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41192,7 +41048,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],291:[function(require,module,exports){
+},{}],290:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41229,7 +41085,7 @@ exports.default = function () {
   return state;
 };
 
-},{}],292:[function(require,module,exports){
+},{}],291:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41244,10 +41100,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+_toastr2.default.options.closeDuration = 300;
+_toastr2.default.options.timeOut = 3000; // How long the toast will display without user interaction
+_toastr2.default.options.extendedTimeOut = 3000; // How long the toast will display after a user hovers over it
+
 function compareTags(tag1, tag2) {
-  if (tag1.name < tag2.name) {
+  if (tag1.name.toLowerCase() < tag2.name.toLowerCase()) {
     return -1;
-  } else if (tag1.name > tag2.name) {
+  } else if (tag1.name.toLowerCase() > tag2.name.toLowerCase()) {
     return 1;
   } else {
     return 0;
@@ -41273,14 +41133,12 @@ exports.default = function () {
         return tag.id != 123123123;
       });
       if (action.payload.data.message == 'Tag Created') {
+        _toastr2.default.success("Tag was successfully created!");
         return [].concat(_toConsumableArray(tags), [action.payload.data.data]).sort(compareTags);
       }
 
     case 'EDIT_TAG':
       if (action.payload.data.message == 'Tag Edited') {
-        _toastr2.default.options.closeDuration = 30000;
-        _toastr2.default.options.timeOut = 30000;
-        _toastr2.default.options.extendedTimeOut = 30000;
         _toastr2.default.success("Tag was successfully edited!");
         var _tags = state.filter(function (tag) {
           return tag.id != action.payload.data.data.id;
@@ -41300,6 +41158,6 @@ exports.default = function () {
   return state;
 };
 
-},{"toastr":269}]},{},[287]);
+},{"toastr":269}]},{},[286]);
 
 //# sourceMappingURL=bundle.js.map

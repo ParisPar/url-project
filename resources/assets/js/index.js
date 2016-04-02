@@ -7,7 +7,6 @@ import { Route, Router, browserHistory } from 'react-router';
 
 
 import App from './containers/app';
-import TestComponent from './components/TestComponent';
 import rootReducer from './reducers';
 import EditLink from './containers/EditLink';
 import CreateLink from './containers/CreateLink';

@@ -18,19 +18,6 @@
 </head>
 <body id="app-layout">
 
-  <div class="remodal-bg">
-    <div class="remodal" data-remodal-id="modal">
-      <button data-remodal-action="close" class="remodal-close"></button>
-      <h1>Remodal</h1>
-      <p>
-        Responsive, lightweight, fast, synchronized with CSS animations, fully customizable modal window plugin with declarative configuration and hash tracking.
-      </p>
-      <br>
-      <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
-      <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
-    </div>
-  </div>
-
   <header>
     <nav class="navbar navbar-default">
       <div class="container">
@@ -57,7 +44,7 @@
             <!-- Authentication Links -->
             @if (Auth::guest())
             <li><a href="{{ url('/login') }}">Login</a></li>
-            <li><a href="{{ url('/register') }}">Register</a></li>
+            <li><a href="{{ url('/register') }}" id="signup">Sign Up</a></li>
             @else
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -77,17 +64,18 @@
     <div class="jumbotron">
       <div class="container">
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-xs-5">
             <h1>Save Your Links Online!</h1>
             <p>
               Tired of having your bookmarks bar full of links you rarely use?
             </p>
-            <p><a class="btn btn-primary btn-lg" href="{{ url('/register') }}" role="button">Signup for free</a></p>
+            <p><a class="btn btn-primary btn-lg" href="{{ url('/register') }}" role="button">Sign Up for free</a></p>
           </div>
-          <div class="col-md-7">
+          <div class="col-xs-7">
             <div class="browser-mockup">
               <!-- <img src="images/screenshot.png" /> -->
-              <img src="images/ss1000x600.png" />
+              <!-- <img src="images/ss1000x600.png" /> -->
+              <img src="images/out3.gif" />
             </div>
           </div>
         </div>
@@ -111,70 +99,71 @@
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Title & Description</a></li>
             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Tagging</a></li>
             <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Link search</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Export to HTML</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Export to PDF</a></li>
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-xs-6">
                   <h1>Title & Description</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <p>
+                    When creating a link, you will be asked to give a title,
+                    that will serve as the displayed text for that link.
+                    You can optionally add a description. Both the title 
+                    and the description terms are taken into account when
+                    searching for a particular link.
                   </p>
                 </div>
-                <div class="col-md-6">
-                  <img src="images/screenshot.png" alt="">
+                <div class="col-xs-6">
+                  <img class="feature-image" src="images/createlink.jpg" alt="">
                 </div>
               </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-xs-6">
                   <h1>Tagging</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <p>
+                    You can organize your links by creating tags and adding them to your
+                    links. You can instantly view all links associated with a tag by clicking
+                    on the tag name.
                   </p>
                 </div>
-                <div class="col-md-6">
-                  <img src="images/screenshot.png" alt="">
+                <div class="col-xs-6">
+                  <img class="feature-image" src="images/tags.jpg" alt="">
                 </div>
               </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="messages">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-xs-6">
                   <h1>Link search</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <p>
+                    The application features an instant search that updates the link list
+                    as soon as you start typing. Both the link title and description are taken into account
+                    when searching though the links. Search results are also combined with
+                    the current active tag filters.
                   </p>
                 </div>
-                <div class="col-md-6">
-                  <img src="images/screenshot.png" alt="">
+                <div class="col-xs-6">
+                  <img class="feature-image" src="images/search.jpg" alt="">
                 </div>
               </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="settings">
               <div class="row">
-                <div class="col-md-6">
-                  <h1>Export to HTML</h1>
-
+                <div class="col-xs-6">
+                  <h1>Export to PDF</h1>
+                  <p>
+                    Finally, you can also export all your links in a PDF file. Just click
+                    the "Export to PDF" button and you will be prompted with a file download
+                    that contains all your links.
+                  </p>
                 </div>
-                <div class="col-md-6">
-                  <img src="images/screenshot.png" alt="">
+                <div class="col-xs-6">
+                  <img class="feature-image" src="images/pdf2.jpg" alt="">
                 </div>
               </div>
             </div>

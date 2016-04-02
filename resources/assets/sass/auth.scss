@@ -1,4 +1,5 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "navbar";
 
 $navbar-links-color: #286090;
 $signup-button-color: #ff7a49;
@@ -11,29 +12,15 @@ body {
   min-height: 535px;
 }
 
-.navbar-default {
-  background-color: transparent;
-  border: none;
-  padding-top: 20px;
-  .navbar-brand {
-    color: $navbar-links-color;
-    font-size: 2em;
-    font-weight: 300;
-  }
-  .navbar-nav {
-    > li > a {
-      color: $navbar-links-color;
-      font-size: 16px;
-      font-weight: 300;
-    }
-  }
-}
+
 
 .panel {
   // max-width: 400px;
   border: none;
+  border-radius: 0;
   max-width: 400px;
   margin: 0 auto;
+  box-shadow: 1px 1px 4px #888;
   .panel-body {
 
     h1 {
@@ -45,7 +32,11 @@ body {
     }
     .btn.btn-primary {
       border: none;
-      border-radius: 0;
+      border-radius: 3px;
+      background: #15CD72;
+      &:hover {
+        background: #0CB863;
+      }
     }
   }
   .form-group {

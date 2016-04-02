@@ -22,7 +22,7 @@
   </style>
 </head>
 <body>
-  <h1>Url Project</h1>
+  <h1>Url Project - My Links</h1>
   @foreach (Auth::user()->links as $link)
     <p>
       <strong>Url: </strong><a href="{{ $link->url }}">{{ $link->url }}</a><br>

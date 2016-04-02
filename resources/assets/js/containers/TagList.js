@@ -14,26 +14,6 @@ class TagList extends Component {
     })
   }
 
-  componentDidMount() {
-    console.log('Tag List component mounted!');
-  }
-
-  componentWillReceiveProps() {
-    // console.log('Tag List component receiving new props!');
-  }
-
-  componentWillUpdate() {
-    console.log('Tag List component will update!');
-  }
-
-  componentDidUpdate() {
-    console.log('Tag List component updated!');
-  }
-
-  componentWillUnmount() {
-    // console.log('Tag List component will unmount!');
-  }
-
   renderTags() {
     // console.log('Running renderTags', this.props.tags);
     return (
@@ -65,7 +45,7 @@ class TagList extends Component {
 
   render() {
     return (
-      <div className="col-sm-3">
+      <div className="col-xs-3">
         <div className="tag-list">
           <h2>
             TAGS
@@ -86,7 +66,7 @@ class TagList extends Component {
               e.preventDefault();
               this.props.clearTagFilters();
             }}>
-              <a href="#"><i className="fa fa-tags"></i>All Tags</a>
+              <i className="fa fa-tags"></i>All Tags
             </li>
             {this.renderTags()}
           </ul>

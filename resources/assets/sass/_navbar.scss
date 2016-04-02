@@ -1,0 +1,37 @@
+$navbar-links-color: #286090;
+
+.navbar-default {
+  background-color: transparent;
+  border: none;
+  padding-top: 20px;
+  .navbar-brand {
+    color: $navbar-links-color;
+    font-size: 2em;
+    font-weight: 300;
+    &:hover, &:focus {
+      color: $navbar-links-color;
+    }
+  }
+  .navbar-nav {
+    > li > a {
+      color: $navbar-links-color;
+      font-size: 16px;
+      font-weight: 400;
+      &:hover, &:focus {
+        color: #286090;
+      }
+      &#signup {
+        border: 2px solid #286090;
+        border-radius: 4px;
+        padding: 10px;
+        margin-top: 3px;
+        transition: all 200ms ease-out;
+        &:hover, &:focus {
+          background: #286090;
+          color: #fff;
+          transition: all 200ms ease-out;
+        }
+      }
+    }
+  }
+}

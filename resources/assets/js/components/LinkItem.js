@@ -6,7 +6,7 @@ export default (props) => {
   return (
     <li>
       <h3>
-        <a href={props.url}>{props.title}</a>
+        <a href={props.url} data-toggle="tooltip" data-placement="top" title={props.url}>{props.title}</a>
         <Link to={"/home/edit/" + props.id}>
           <i className="fa fa-pencil"></i>
         </Link>

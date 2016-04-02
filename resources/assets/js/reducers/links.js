@@ -1,9 +1,13 @@
 import toastr from 'toastr';
 
+toastr.options.closeDuration = 300;
+toastr.options.timeOut = 3000; // How long the toast will display without user interaction
+toastr.options.extendedTimeOut = 3000; // How long the toast will display after a user hovers over it
+
 function compareLinks(link1, link2) {
-  if(link1.title < link2.title) {
+  if(link1.title.toLowerCase() < link2.title.toLowerCase()) {
     return -1;
-  } else if(link1.title > link2.title) {
+  } else if(link1.title.toLowerCase() > link2.title.toLowerCase()) {
     return 1;
   } else {
     return 0;
@@ -24,9 +28,6 @@ export default (state = [], action) => {
 
     case 'EDIT_LINK':
       if(action.payload.data.message == 'Link Edited'){
-        toastr.options.closeDuration = 30000;
-        toastr.options.timeOut = 30000;
-        toastr.options.extendedTimeOut = 30000;
         toastr.success("Link was successfully edited!");
         let links = state.filter((link) => link.id != action.payload.data.data.id)
         return [...links, action.payload.data.data].sort(compareLinks);
@@ -53,6 +54,17 @@ export default (state = [], action) => {
         })
         return updatedLinks;
       }
+
+    case 'DELETE_TAG':
+      if(action.payload.data.message == 'Tag Deleted'){
+        let links = [...state];
+        let updatedLinks = links.map((link) => {
+          let updatedTags = link.tags.filter((tag) => tag.id != action.payload.data.data.id)
+          link.tags = updatedTags;
+          return link;
+        })
+        return updatedLinks;
+      } 
   }
   return state;
 }

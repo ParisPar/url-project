@@ -29,27 +29,22 @@ class CreateLink extends Component {
     this.setState({
       ['allTags']: allTags
     });
-    console.log('CreateLink componentWillMount', this.state);
+    // console.log('CreateLink componentWillMount', this.state);
   }
 
   // Needed for when tags aren't yet fetched from the database
   componentWillReceiveProps() {
+    // All user tags in react-select acceptable format
+    let allTags = this.props.tags.map((tag) => {
+      return {
+        value: tag.id,
+        label: tag.name
+      }
+    });
 
-    // // All user tags in react-select acceptable format
-    // let allTags = this.props.tags.map((tag) => {
-    //   return {
-    //     value: tag.id,
-    //     label: tag.name
-    //   }
-    // });
-
-    // this.setState({
-    //   ['allTags']: allTags
-    // });
-  }
-
-  componentWillUpdate() {
-    console.log('CreateLink componentWillUpdate');
+    this.setState({
+      ['allTags']: allTags
+    });
   }
 
   handleChange(field, event) {
@@ -69,7 +64,7 @@ class CreateLink extends Component {
   handleSubmit() {
     let tagIds = this.state.selectedTags.map((tag) => tag.value);
 
-    console.log('Sending create request', this.state.draftLink, tagIds);
+    // console.log('Sending create request', this.state.draftLink, tagIds);
 
     this.props.createLink(this.state.draftLink, tagIds);
 

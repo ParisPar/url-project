@@ -5,26 +5,6 @@ import LinkItem from '../components/LinkItem';
 
 class LinkList extends Component {
 
-  componentDidMount() {
-    console.log('Link List component mounted!');
-  }
-
-  componentWillReceiveProps() {
-    console.log('Link List component receiving new props!');
-  }
-
-  componentWillUpdate() {
-    console.log('Link List component will update!');
-  }
-
-  componentDidUpdate(newProps) {
-    console.log('Link List component updated!');
-  }
-
-  componentWillUnmount() {
-    console.log('Link List component will unmount!');
-  }
-
   renderLinks(links) {
     return (
       links.map((link) => {
@@ -60,7 +40,8 @@ class LinkList extends Component {
     // Filter links by the search term
     const lcSearchFilter = searchFilter.toLowerCase();
     const searchFilteredLinks = links.filter((link) => {
-      return link.title.toLowerCase().includes(lcSearchFilter);
+      return link.title.toLowerCase().includes(lcSearchFilter) || 
+             link.description.toLowerCase().includes(lcSearchFilter);
     });
 
     if(tagFilters.length == 0)
@@ -88,12 +69,12 @@ class LinkList extends Component {
     const visibleLinks = this.getFilteredLinks(this.props.links, this.props.searchFilter, this.props.tagFilters);
 
     return (
-      <div className="col-sm-9">
+      <div className="col-xs-9">
         <div className="app-main">
           <ul className="links-list">
             {this.renderLinks(visibleLinks)}
           </ul>
-          {this.renderPagination()}
+          {/*this.renderPagination()*/}
         </div>
       </div>
     )

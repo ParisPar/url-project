@@ -5749,12 +5749,6 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-body {
-  font-family: Lato; }
-  body header {
-    background: linear-gradient(to bottom, #89c3eb 0%, #fff 100%);
-    background-repeat: no-repeat; }
-
 .navbar-default {
   background-color: transparent;
   border: none;
@@ -5763,10 +5757,31 @@ body {
     color: #286090;
     font-size: 2em;
     font-weight: 300; }
+    .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+      color: #286090; }
   .navbar-default .navbar-nav > li > a {
     color: #286090;
     font-size: 16px;
-    font-weight: 300; }
+    font-weight: 400; }
+    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+      color: #286090; }
+    .navbar-default .navbar-nav > li > a#signup {
+      border: 2px solid #286090;
+      border-radius: 4px;
+      padding: 10px;
+      margin-top: 3px;
+      transition: all 200ms ease-out; }
+      .navbar-default .navbar-nav > li > a#signup:hover, .navbar-default .navbar-nav > li > a#signup:focus {
+        background: #286090;
+        color: #fff;
+        transition: all 200ms ease-out; }
+
+body {
+  font-family: Lato;
+  min-width: 850px; }
+  body header {
+    background: linear-gradient(to bottom, #89c3eb 0%, #fff 100%);
+    background-repeat: no-repeat; }
 
 .jumbotron {
   background: transparent; }
@@ -5780,9 +5795,11 @@ body {
     background: #ff7a49;
     border: none;
     border-radius: 3px;
-    padding: 15px; }
+    padding: 15px;
+    transition: all 200ms ease-out; }
     .jumbotron .btn.btn-primary:hover {
-      background: #DF6632; }
+      background: #DF6632;
+      transition: all 200ms ease-out; }
 
 .browser-mockup {
   border-top: 2em solid rgba(230, 230, 230, 0.7);
@@ -5842,6 +5859,11 @@ main hr {
   .features .tab-pane p {
     font-size: 20px;
     font-weight: 300; }
+  .features .tab-pane .feature-image {
+    width: 100%;
+    margin-top: 16px;
+    max-width: 441px;
+    box-shadow: 1px 1px 7px; }
 
 footer {
   background-color: #0b1e35;

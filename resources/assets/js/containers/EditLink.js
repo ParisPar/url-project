@@ -60,7 +60,7 @@ class EditLink extends Component {
   handleSubmit() {
     let tagIds = this.state.selectedTags.map((tag) => tag.value);
 
-    console.log('Sending edit request', this.state.draftLink, tagIds);
+    // console.log('Sending edit request', this.state.draftLink, tagIds);
 
     this.props.editLink(this.state.draftLink, tagIds);
 
@@ -77,7 +77,6 @@ class EditLink extends Component {
     setTimeout(function(){
       router.push('/home');
     },300);
-    // this.context.router.push('/home');
   }
 
   render() {
